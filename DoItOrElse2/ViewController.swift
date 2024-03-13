@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var reminders: [EKReminder] = [];
     var store: EKEventStore = EKEventStore();
+    var selected: String?;
     
     //    private var coreDataStack = CoreDataStack.shared;
     
@@ -63,6 +64,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tasksTableView.delegate = self;
                 
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let theDestination = (segue.destination as! ReminderDetailsViewController)
+        theDestination.selectedId = selected
+        
+
+    }
         
 }
 // MARK: TableView data functions
@@ -76,10 +83,29 @@ extension ViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? MyTableViewCell else {
                 fatalError("Unable to dequeue CustomTableViewCell")
             }
-            
+            cell.todoDescription.text = ""
             let reminder = reminders[indexPath.row]
+            let alreadyPassed = (reminder.completionDate != nil) ? Utils.dateAlreadyPassed(reminder.completionDate!) : false;
             cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
-            
+            if (alreadyPassed) {
+                cell.todoDescription.textColor = .red;
+                cell.todoDescription.text! += "Overdue - "
+            }
+            let dateString = ""
+            if ((reminder.dueDateComponents) != nil) {
+//                cell.todoDescription.text! += String(reminder.dueDateComponents!.month);
+                if (reminder.dueDateComponents!.month != nil) {
+                    cell.todoDescription.text! += String(reminder.dueDateComponents!.month!)
+                }
+                cell.todoDescription.text! += "/"
+                if (reminder.dueDateComponents!.day != nil) {
+                    cell.todoDescription.text! += String(reminder.dueDateComponents!.day!)
+                }
+            }
             return cell
-        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+
 }

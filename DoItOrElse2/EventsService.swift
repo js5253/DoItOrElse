@@ -48,6 +48,9 @@ class EventsService {
 
         
     }
+    func getReminderById(_ identifier: String) -> EKReminder {
+        return store?.calendarItem(withIdentifier: identifier) as! EKReminder
+    }
     func attachCategoryToEvent(id: String) {
         
     }

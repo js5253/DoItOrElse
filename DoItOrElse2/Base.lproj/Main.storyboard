@@ -226,6 +226,33 @@
             </objects>
             <point key="canvasLocation" x="-306.1068702290076" y="34.507042253521128"/>
         </scene>
+        <!--Reminder Details View Controller-->
+        <scene sceneID="vbW-70-Y62">
+            <objects>
+                <viewController id="lq1-8U-E1X" customClass="ReminderDetailsViewController" customModule="DoItOrElse2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dDM-fY-dja">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ve-wz-fGt">
+                                <rect key="frame" x="16" y="48" width="63" height="41"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Nb2-b2-u1F"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3ve-wz-fGt" firstAttribute="leading" secondItem="Nb2-b2-u1F" secondAttribute="leading" constant="16" id="c9b-lg-xXz"/>
+                            <constraint firstItem="3ve-wz-fGt" firstAttribute="top" secondItem="Nb2-b2-u1F" secondAttribute="top" constant="48" id="o23-uq-mCb"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dzn-kn-o3p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="659" y="-573"/>
+        </scene>
         <!--Item 1-->
         <scene sceneID="zks-kS-gwJ">
             <objects>
@@ -252,32 +279,33 @@
                                 <rect key="frame" x="16" y="107" width="361" height="620"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomCell" rowHeight="98" id="FVv-S0-dgn" customClass="MyTableViewCell" customModule="DoItOrElse2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="98"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomCell" textLabel="63G-oe-A8G" detailTextLabel="UjX-qu-WND" rowHeight="42" style="IBUITableViewCellStyleValue1" id="FVv-S0-dgn" customClass="MyTableViewCell" customModule="DoItOrElse2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FVv-S0-dgn" id="drQ-mg-vgg">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1x-DH-Xfy">
-                                                    <rect key="frame" x="20" y="11" width="321" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="63G-oe-A8G">
+                                                    <rect key="frame" x="20" y="14" width="25" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zos-PQ-dMI">
-                                                    <rect key="frame" x="20" y="39" width="321" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UjX-qu-WND">
+                                                    <rect key="frame" x="308.33333333333331" y="14" width="32.666666666666664" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="todoDescription" destination="Zos-PQ-dMI" id="Z3U-i1-S5b"/>
-                                            <outlet property="todoTitle" destination="n1x-DH-Xfy" id="LDF-BG-PDg"/>
+                                            <outlet property="todoDescription" destination="UjX-qu-WND" id="wXB-r8-0Oz"/>
+                                            <outlet property="todoTitle" destination="63G-oe-A8G" id="5Wi-7L-Pma"/>
+                                            <segue destination="lq1-8U-E1X" kind="showDetail" id="UWB-Uf-dpg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
