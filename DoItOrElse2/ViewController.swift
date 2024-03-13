@@ -12,6 +12,7 @@ import SwiftUI
 class ViewController: UIViewController {
     var reminders: Optional<[EKReminder]> = .none;
     var store: EKEventStore = EKEventStore();
+    
 //    private var coreDataStack = CoreDataStack.shared;
     
     
@@ -51,48 +52,21 @@ class ViewController: UIViewController {
         }
    }
     override func viewWillAppear(_ animated: Bool) {
-        let headings = [
-        "Good evening. Let's do stuff.",
         
-        ]
-        headerLabel.text = headings[0]
-                
     }
     override func viewDidLoad() {
         print("hello world")
         super.viewDidLoad()
         
-        let r = DataFetcher();
-        let results = r.getEvents();
-        print("EVents: ", results)
-        
-        
-//        let managedContext = self.coreDataStack.persistentContainer.viewContext;
-        
-        
-//        todoCollection.delegate = self;
-//        todoCollection.dataSource = self;
-//        todoCollection.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewNib")
-//        
-        store.requestFullAccessToEvents(completion: {
-            granted, error in
-                print(granted, error)
+        EventsService.shared.getReminders(completion: {
+            reminders in
+            print(reminders)
         })
-//        store.requestFullAccessToReminders(completion: { granted, error in
-//            
-//            let cal = self.store.defaultCalendarForNewReminders()!;
-//            let pred = self.store.predicateForReminders(in: [cal]);
-//            print(self.store.fetchReminders(matching: pred, completion: {
-//            rem in
-//                self.reminders = rem;
-//                self.displayToDoItems()
-//            }
-//            ))
-//        })
+                
+    }
     }
 
 
-}
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected item")
