@@ -29,58 +29,86 @@ class EventsService {
     
     var store: EKEventStore? = nil;
     var context: ModelContext? = nil;
+    var container: ModelContainer? = nil;
     static let shared: EventsService = {
         let instance = EventsService()
         instance.initialize()
         // setup code
         return instance
     }()
-    func addCategory(name: String) {
+    func createNewCategory(name: String) async {
+        await container?.mainContext.insert(Category(name: "Jose"))
+        do {
+            try await container?.mainContext.save()
+            
+            try await print(container?.mainContext.fetch(FetchDescriptor<Category>()))
+        } catch {
+            print(error)
+        }
+
+        
+    }
+    func attachCategoryToEvent(id: String) {
         
     }
     func initialize() {
         store = EKEventStore();
+        do {
+            container = try ModelContainer(for: Category.self);
+        } catch {
+            print(error)
+        }
 //        do { try to initialize SwiftData from here, somehow ;-;
 //            let container = try ModelContainer(for:Category.self);
 //            context = container.mainContext;
 //        } catch {
 //            
 //        }
-        func requestAccessToReminders(completion: @escaping (Bool, Error?) -> Void) {
-            store?.requestFullAccessToReminders() { (granted, error) in
-                    DispatchQueue.main.async {
-                        completion(granted, error)
-                    }
+        store?.requestFullAccessToReminders() { (granted, error) in}
                 }
-            }
 
-    }
-    func getAllReminders(completion: @escaping ([EKReminder]?) -> Void) -> Void {
+    func getAllReminders() async -> [EKReminder]? {
         print("Get All events...")
         
         let predForAllItems = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!]);
-        getRemindersWithPredicate(predicate: predForAllItems, completion: completion)
+        return await getRemindersWithPredicate(predicate: predForAllItems)
 
     }
-    func getRemindersWithPredicate(predicate: NSPredicate, completion: @escaping ([EKReminder]?) -> Void) {
-        print("Get events...")
-        
-        
-        guard let cal = self.store!.defaultCalendarForNewReminders() else {
-            print("Error getting default calendar")
-            return
-        };
-        let predForAllItems = self.store!.predicateForReminders(in: [cal]);
-        self.store!.fetchReminders(matching: predForAllItems, completion: {
-            rem in
-            completion(rem)
-        })
+    func getRemindersWithPredicate(predicate: NSPredicate) async -> [EKReminder]? {
+        await withCheckedContinuation { continuation in
+            guard let cal = self.store!.defaultCalendarForNewReminders() else {
+                print("Error getting default calendar")
+                return
+            };
+            let predForAllItems = self.store!.predicateForReminders(in: [cal]);
+            self.store!.fetchReminders(matching: predForAllItems, completion: {
+                rem in
+                continuation.resume(returning: rem)
+            })
 
+        }
+        
     }
-    func getTotal() {
-        getAllReminders(completion: {
-            reminders in
-            reminders?.reduce(0, {x, _ in x + 20}) // FIXME: CHECK FOR ONLY ONES THAT PASSED
-        })
+    func getFutureReminders(predicate: NSPredicate) async -> [EKReminder]?{
+        let predForFutureReminders = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!])
+        return await getRemindersWithPredicate(predicate: predForFutureReminders)
+    }
+    func getAmountOwed() async -> Int {
+        let reminders = await getAllReminders();
+        
+        let amountOwed = reminders?.reduce(0, {x, _ in x + 20});
+        
+        return amountOwed ?? 0
+    }
+    func addReminder(todoName: String, todoDueDate: Date) {
+        let ev = EKReminder(eventStore: store!)
+        ev.title = todoName;
+        ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
+        ev.calendar = store!.defaultCalendarForNewReminders()
+        do {
+            try store!.save(ev, commit: true)
+        } catch {
+            print(error)
+        }
     }
 }

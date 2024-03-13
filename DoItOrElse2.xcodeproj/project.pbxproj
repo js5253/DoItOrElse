@@ -12,9 +12,9 @@
 		824846C62B96A45200AFAFA6 /* BegViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824846C52B96A45200AFAFA6 /* BegViewController.swift */; };
 		8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */; };
 		82B58B992B8D391800E68AD0 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B58B982B8D391800E68AD0 /* TodoItem.swift */; };
-		82B58B9C2B8D3DAB00E68AD0 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B58B9A2B8D3DAB00E68AD0 /* MyCollectionViewCell.swift */; };
-		82B58B9D2B8D3DAB00E68AD0 /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82B58B9B2B8D3DAB00E68AD0 /* MyCollectionViewCell.xib */; };
 		82CFF45E2BA15E4100689D4A /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45D2BA15E4100689D4A /* EventsService.swift */; };
+		82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45F2BA1712300689D4A /* SettingsViewController.swift */; };
+		82CFF4642BA17BDE00689D4A /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */; };
 		82D74F892B8562080031CBAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D74F882B8562080031CBAA /* AppDelegate.swift */; };
 		82D74F8B2B8562080031CBAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D74F8A2B8562080031CBAA /* SceneDelegate.swift */; };
 		82D74F8D2B8562080031CBAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D74F8C2B8562080031CBAA /* ViewController.swift */; };
@@ -52,9 +52,9 @@
 		824846C52B96A45200AFAFA6 /* BegViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BegViewController.swift; sourceTree = "<group>"; };
 		8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCompletion.swift; sourceTree = "<group>"; };
 		82B58B982B8D391800E68AD0 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
-		82B58B9A2B8D3DAB00E68AD0 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
-		82B58B9B2B8D3DAB00E68AD0 /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
 		82CFF45D2BA15E4100689D4A /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
+		82CFF45F2BA1712300689D4A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		82D74F852B8562080031CBAA /* DoItOrElse2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoItOrElse2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82D74F882B8562080031CBAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82D74F8A2B8562080031CBAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,8 +126,6 @@
 				82D74F882B8562080031CBAA /* AppDelegate.swift */,
 				82D74F8A2B8562080031CBAA /* SceneDelegate.swift */,
 				82D74F8C2B8562080031CBAA /* ViewController.swift */,
-				82B58B9A2B8D3DAB00E68AD0 /* MyCollectionViewCell.swift */,
-				82B58B9B2B8D3DAB00E68AD0 /* MyCollectionViewCell.xib */,
 				82D74F8E2B8562080031CBAA /* Main.storyboard */,
 				82D74F912B85620A0031CBAA /* Assets.xcassets */,
 				82D74F932B85620A0031CBAA /* LaunchScreen.storyboard */,
@@ -139,6 +137,8 @@
 				824846C02B96A0A000AFAFA6 /* AppModel.xcdatamodeld */,
 				824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */,
 				8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */,
+				82CFF45F2BA1712300689D4A /* SettingsViewController.swift */,
+				82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */,
 			);
 			path = DoItOrElse2;
 			sourceTree = "<group>";
@@ -266,7 +266,6 @@
 			files = (
 				82D74F952B85620A0031CBAA /* LaunchScreen.storyboard in Resources */,
 				82D74F922B85620A0031CBAA /* Assets.xcassets in Resources */,
-				82B58B9D2B8D3DAB00E68AD0 /* MyCollectionViewCell.xib in Resources */,
 				82D74F902B8562080031CBAA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,13 +293,14 @@
 			files = (
 				82CFF45E2BA15E4100689D4A /* EventsService.swift in Sources */,
 				82D74F8D2B8562080031CBAA /* ViewController.swift in Sources */,
-				82B58B9C2B8D3DAB00E68AD0 /* MyCollectionViewCell.swift in Sources */,
 				82D74FB92B85824F0031CBAA /* PomoViewController.swift in Sources */,
 				82F1D0462B952FAC006AD17A /* ToDo.swift in Sources */,
 				824846C62B96A45200AFAFA6 /* BegViewController.swift in Sources */,
 				82D74FBD2B8593880031CBAA /* SheetAppDelegate.swift in Sources */,
 				824846C42B96A0E900AFAFA6 /* CoreDataStack.swift in Sources */,
+				82CFF4642BA17BDE00689D4A /* MyTableViewCell.swift in Sources */,
 				8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */,
+				82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */,
 				824846C22B96A0A000AFAFA6 /* AppModel.xcdatamodeld in Sources */,
 				82D74F892B8562080031CBAA /* AppDelegate.swift in Sources */,
 				82B58B992B8D391800E68AD0 /* TodoItem.swift in Sources */,

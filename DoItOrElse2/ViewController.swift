@@ -9,31 +9,24 @@ import UIKit
 import EventKit
 import SwiftUI
 
-class ViewController: UIViewController {
-    var reminders: Optional<[EKReminder]> = .none;
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var reminders: [EKReminder] = [];
     var store: EKEventStore = EKEventStore();
     
-//    private var coreDataStack = CoreDataStack.shared;
+    //    private var coreDataStack = CoreDataStack.shared;
     
     
     @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var todoCollection: UICollectionView!
+    @IBOutlet weak var todoTable: UITableView!
     @IBOutlet weak var demoButton: UIButton!
-
-    func displayToDoItems() {
-        switch(reminders) {
-        case .none: print("None")
-        case .some(let rem): do {
-            print("ASAASSA")
-        }
-        }
-    }
+    @IBOutlet weak var tasksTableView: UITableView!;
     @IBAction func onTouchDown(_ sender: UITextField) {
         let hostingController = UIHostingController(rootView: NewTodoView(store: store))
         hostingController.modalPresentationStyle = .pageSheet
         // Present the hosting controller as a sheet
         present(hostingController, animated: true, completion: nil)
-
+        
     }
     
     @IBAction func onDemoButtonPress(_ sender: Any) {
@@ -50,40 +43,43 @@ class ViewController: UIViewController {
                 present(viewController, animated: true, completion: nil)
             }
         }
-   }
+    }
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
+        Task {
+            let rem = await EventsService.shared.getAllReminders()
+            await MainActor.run {
+                self.reminders = rem ?? []
+                self.tasksTableView.reloadData() // Reload the table view on the main thread
+            }
+        }
+
     }
     override func viewDidLoad() {
         print("hello world")
         super.viewDidLoad()
         
-        EventsService.shared.getReminders(completion: {
-            reminders in
-            print(reminders)
-        })
+        tasksTableView.dataSource = self;
+        tasksTableView.delegate = self;
                 
     }
-    }
-
-
-extension ViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected item")
-    }
-}
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12;
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
         
-        return cell
-    }
 }
+// MARK: TableView data functions
 
-//extension ViewController: UICollectionViewDelegateFlowLayout {
-//    
-//}
-
+extension ViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return reminders.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? MyTableViewCell else {
+                fatalError("Unable to dequeue CustomTableViewCell")
+            }
+            
+            let reminder = reminders[indexPath.row]
+            cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
+            
+            return cell
+        }
+}

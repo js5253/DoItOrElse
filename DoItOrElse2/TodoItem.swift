@@ -15,6 +15,7 @@ enum TodoItemState {
     case DueSoon
 }
 import SwiftUI
+import SwiftData
 public struct NewTodoView: View {
     @State private var todoType = 0
     @State private var todoName = ""
@@ -24,19 +25,15 @@ public struct NewTodoView: View {
     @State private var todoNewCategory = ""
     @State private var todoDueDate = Date()
     @FocusState private var focused: Bool
-
+    @Query() var allCategories: [Category]
     public var store: EKEventStore;
     
     private func add() {
-        var ev = EKReminder(eventStore: store)
-        ev.title = todoName;
-        ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
-        ev.calendar = store.defaultCalendarForNewReminders()
-        do {
-//            try store.save(ev, .thisEvent);
-           try store.save(ev, commit: true)
-        } catch {
-            print(error)
+        EventsService.shared.addReminder(todoName: todoName, todoDueDate: todoDueDate)
+    }
+    private func newCategory() {
+        Task {
+            await EventsService.shared.createNewCategory(name: todoName)
         }
     }
     
@@ -51,6 +48,8 @@ public struct NewTodoView: View {
                     ForEach(categories, id: \.self) { string in
                         Text(string)
                     }
+                    ForEach(allCategories, id: \.self) {category in
+                        Text(category.name!)}
                 }.onChange(of: todoCategory, {
                     if (todoCategory == "New Category") {
                         todoNewCategoryPresented = true
@@ -58,20 +57,20 @@ public struct NewTodoView: View {
                 })
                 .alert("Create a new category", isPresented: $todoNewCategoryPresented) {
                     TextField("ASSA", text: $todoNewCategory)
-//                    ColorPicker("Category Color", selection: $todoCategoryColorSelection, supportsOpacity: false)
-                    Button(action: {}) {
+                    //                    ColorPicker("Category Color", selection: $todoCategoryColorSelection, supportsOpacity: false)
+                    Button(action: newCategory) {
                         Text("OK")
                     }
                 }
                 Picker("Repeat", selection: $todoCategory) {
-                Text("Repeat")
-                ForEach(repeatTimes, id: \.self) { string in
-                    Text(string)
+                    Text("Repeat")
+                    ForEach(repeatTimes, id: \.self) { string in
+                        Text(string)
+                    }
                 }
             }
-        }
             DatePicker("Due Date", selection: $todoDueDate, displayedComponents: [.date])
-
+            
             Picker("What's this type of thing?", selection: $todoType) {
                 Text("To-Do").tag(0)
                 Text("Habit").tag(1)
@@ -91,6 +90,7 @@ public struct NewTodoView: View {
         .onAppear{
             focused = true
         }
+        .modelContainer(for: Category.self)
     }
 }
 
