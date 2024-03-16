@@ -17,6 +17,7 @@ class SettingsViewController: ViewController {
         super.viewDidLoad();
         Task {
             moneySpentHeadingLabel.text = await "$" + String( EventsService.shared.getAmountOwed())
+            tasksDueTodayLabel.text = String(EventsService.shared.getReminderCount());
         }
     }
 }

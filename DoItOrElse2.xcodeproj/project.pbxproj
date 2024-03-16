@@ -11,7 +11,7 @@
 		824846C42B96A0E900AFAFA6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */; };
 		824846C62B96A45200AFAFA6 /* BegViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824846C52B96A45200AFAFA6 /* BegViewController.swift */; };
 		8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */; };
-		82B58B992B8D391800E68AD0 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B58B982B8D391800E68AD0 /* TodoItem.swift */; };
+		82B58B992B8D391800E68AD0 /* NewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B58B982B8D391800E68AD0 /* NewTodoView.swift */; };
 		82CFF45E2BA15E4100689D4A /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45D2BA15E4100689D4A /* EventsService.swift */; };
 		82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45F2BA1712300689D4A /* SettingsViewController.swift */; };
 		82CFF4642BA17BDE00689D4A /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */; };
@@ -28,7 +28,7 @@
 		82D74FBD2B8593880031CBAA /* SheetAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D74FBC2B8593880031CBAA /* SheetAppDelegate.swift */; };
 		82F1D0462B952FAC006AD17A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D0452B952FAC006AD17A /* ToDo.swift */; };
 		82FA916C2BA21F7100DBD0E5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA916B2BA21F7100DBD0E5 /* Utils.swift */; };
-		82FA916E2BA2250000DBD0E5 /* ReminderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA916D2BA2250000DBD0E5 /* ReminderDetailsViewController.swift */; };
+		82FA91702BA54C0900DBD0E5 /* ReminderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA916F2BA54C0900DBD0E5 /* ReminderDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 		824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		824846C52B96A45200AFAFA6 /* BegViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BegViewController.swift; sourceTree = "<group>"; };
 		8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCompletion.swift; sourceTree = "<group>"; };
-		82B58B982B8D391800E68AD0 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		82B58B982B8D391800E68AD0 /* NewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoView.swift; sourceTree = "<group>"; };
 		82CFF45D2BA15E4100689D4A /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
 		82CFF45F2BA1712300689D4A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		82D74FBC2B8593880031CBAA /* SheetAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetAppDelegate.swift; sourceTree = "<group>"; };
 		82F1D0452B952FAC006AD17A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		82FA916B2BA21F7100DBD0E5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		82FA916D2BA2250000DBD0E5 /* ReminderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailsViewController.swift; sourceTree = "<group>"; };
+		82FA916F2BA54C0900DBD0E5 /* ReminderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,7 @@
 				82D74F962B85620A0031CBAA /* Info.plist */,
 				82D74FB82B85824F0031CBAA /* PomoViewController.swift */,
 				82D74FBC2B8593880031CBAA /* SheetAppDelegate.swift */,
-				82B58B982B8D391800E68AD0 /* TodoItem.swift */,
+				82B58B982B8D391800E68AD0 /* NewTodoView.swift */,
 				82F1D0452B952FAC006AD17A /* ToDo.swift */,
 				824846C02B96A0A000AFAFA6 /* AppModel.xcdatamodeld */,
 				824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */,
@@ -144,7 +144,7 @@
 				82CFF45F2BA1712300689D4A /* SettingsViewController.swift */,
 				82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */,
 				82FA916B2BA21F7100DBD0E5 /* Utils.swift */,
-				82FA916D2BA2250000DBD0E5 /* ReminderDetailsViewController.swift */,
+				82FA916F2BA54C0900DBD0E5 /* ReminderDetailsView.swift */,
 			);
 			path = DoItOrElse2;
 			sourceTree = "<group>";
@@ -298,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				82CFF45E2BA15E4100689D4A /* EventsService.swift in Sources */,
-				82FA916E2BA2250000DBD0E5 /* ReminderDetailsViewController.swift in Sources */,
 				82D74F8D2B8562080031CBAA /* ViewController.swift in Sources */,
 				82D74FB92B85824F0031CBAA /* PomoViewController.swift in Sources */,
 				82F1D0462B952FAC006AD17A /* ToDo.swift in Sources */,
@@ -311,7 +310,8 @@
 				82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */,
 				824846C22B96A0A000AFAFA6 /* AppModel.xcdatamodeld in Sources */,
 				82D74F892B8562080031CBAA /* AppDelegate.swift in Sources */,
-				82B58B992B8D391800E68AD0 /* TodoItem.swift in Sources */,
+				82B58B992B8D391800E68AD0 /* NewTodoView.swift in Sources */,
+				82FA91702BA54C0900DBD0E5 /* ReminderDetailsView.swift in Sources */,
 				82D74F8B2B8562080031CBAA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

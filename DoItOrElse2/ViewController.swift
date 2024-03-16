@@ -51,7 +51,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let rem = await EventsService.shared.getAllReminders()
             await MainActor.run {
                 self.reminders = rem ?? []
-                self.tasksTableView.reloadData() // Reload the table view on the main thread
+                if (tasksTableView != nil) {
+                     // BUG
+                    self.tasksTableView.reloadData() // Reload the table view on the main thread
+                }
             }
         }
 
@@ -59,9 +62,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         print("hello world")
         super.viewDidLoad()
-        
-        tasksTableView.dataSource = self;
-        tasksTableView.delegate = self;
+        self.view.layoutIfNeeded()
+        if (tasksTableView != nil) {
+            tasksTableView.dataSource = self;
+            tasksTableView.delegate = self;
+        }
                 
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

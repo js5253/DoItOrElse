@@ -8,6 +8,7 @@
 import Foundation
 import EventKit
 import SwiftData
+import UserNotifications
 
 @Model class Category {
     var name: String?
@@ -30,9 +31,11 @@ class EventsService {
     var store: EKEventStore? = nil;
     var context: ModelContext? = nil;
     var container: ModelContainer? = nil;
+    private let center = UNUserNotificationCenter.current()
+
     static let shared: EventsService = {
         let instance = EventsService()
-        instance.initialize()
+            instance.initialize();
         // setup code
         return instance
     }()
@@ -40,13 +43,25 @@ class EventsService {
         await container?.mainContext.insert(Category(name: "Jose"))
         do {
             try await container?.mainContext.save()
-            
-            try await print(container?.mainContext.fetch(FetchDescriptor<Category>()))
+//            try await container?.mainContext.fetch(.)
         } catch {
             print(error)
         }
 
         
+    }
+    func getCategories() -> [Category] {
+        print("Get categories")
+        do {
+            Task {
+                let data = try await container?.mainContext.fetch(FetchDescriptor<Category>())
+                print("DATA", data)
+                return data
+            }
+        } catch {
+            print("An error has occured", error)
+        }
+        return []
     }
     func getReminderById(_ identifier: String) -> EKReminder {
         return store?.calendarItem(withIdentifier: identifier) as! EKReminder
@@ -54,9 +69,15 @@ class EventsService {
     func attachCategoryToEvent(id: String) {
         
     }
-    func initialize() {
+    func sendNotification() {
+    }
+        func initialize() {
         store = EKEventStore();
         do {
+            try center.requestAuthorization(completionHandler: {
+                _, _ in
+                
+            })
             container = try ModelContainer(for: Category.self);
         } catch {
             print(error)
@@ -69,7 +90,12 @@ class EventsService {
 //        }
         store?.requestFullAccessToReminders() { (granted, error) in}
                 }
-
+    func getReminderCount() -> Int {
+        Task {
+            return await getAllReminders()?.count;
+        }
+        return 0;
+    }
     func getAllReminders() async -> [EKReminder]? {
         print("Get All events...")
         
@@ -96,6 +122,13 @@ class EventsService {
         let predForFutureReminders = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!])
         return await getRemindersWithPredicate(predicate: predForFutureReminders)
     }
+    func getRemindersPassed() async -> [Category] {
+        var reminders = await getAllReminders();
+        reminders?.filter({
+            data in
+            data.creationDate
+        })
+    }
     func getAmountOwed() async -> Int {
         let reminders = await getAllReminders();
         
@@ -103,7 +136,7 @@ class EventsService {
         
         return amountOwed ?? 0
     }
-    func addReminder(todoName: String, todoDueDate: Date) {
+    func createReminder(todoName: String, todoDueDate: Date) {
         let ev = EKReminder(eventStore: store!)
         ev.title = todoName;
         ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
