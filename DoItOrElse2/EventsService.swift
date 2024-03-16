@@ -16,12 +16,17 @@ import UserNotifications
         self.name = name
     }
 }
-@Model class AdditionalReminderInformation {
+@Model public class AdditionalReminderInformation {
     var category: Category?
-    
+    var isAlreadyCounter: Bool
     init(category: Category? = nil) {
         self.category = category
+        self.isAlreadyCounter = false
     }
+}
+
+extension Event where Self: EKReminder {
+    var extra: AdditionalReminderInformation;
 }
 
 class EventsService {
@@ -74,9 +79,9 @@ class EventsService {
         func initialize() {
         store = EKEventStore();
         do {
-            try center.requestAuthorization(completionHandler: {
-                _, _ in
-                
+            try center.requestAuthorization(options: [.alert, .badge, .sound, .provisional], completionHandler: {
+                idk, err in
+                print("notifications:", idk, err)
             })
             container = try ModelContainer(for: Category.self);
         } catch {
@@ -122,12 +127,14 @@ class EventsService {
         let predForFutureReminders = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!])
         return await getRemindersWithPredicate(predicate: predForFutureReminders)
     }
-    func getRemindersPassed() async -> [Category] {
+    func getRemindersPassed() async -> [EKReminder]? {
         var reminders = await getAllReminders();
-        reminders?.filter({
+        reminders = reminders?.filter({
             data in
-            data.creationDate
+//            data.creationDate
+            return true
         })
+        return reminders
     }
     func getAmountOwed() async -> Int {
         let reminders = await getAllReminders();
@@ -136,13 +143,39 @@ class EventsService {
         
         return amountOwed ?? 0
     }
-    func createReminder(todoName: String, todoDueDate: Date) {
+    func createReminder(todoName: String, todoDueDate: Date?, hasNotification: Bool) {
         let ev = EKReminder(eventStore: store!)
         ev.title = todoName;
-        ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
+        if let todoDueDate = todoDueDate {
+            ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
+        }
         ev.calendar = store!.defaultCalendarForNewReminders()
         do {
             try store!.save(ev, commit: true)
+            
+            if (hasNotification) {
+                print("notification or something, idk")
+                let content = UNMutableNotificationContent()
+                content.title = "aaaaaaa"
+                content.body = "UwU oopsy woopsy"
+                content.sound = .default
+                
+                let futureDate = Calendar.current.date(byAdding: .second, value: 10, to: Date())!
+                
+                let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: futureDate)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+                center.add(request) { error in
+                    if let error = error {
+                        print("Error scheduling notification: \(error)")
+                    } else {
+                        print("Notification scheduled to fire in 1 minute")
+                    }
+
+                }
+
+            }
         } catch {
             print(error)
         }

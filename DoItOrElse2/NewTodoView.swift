@@ -25,7 +25,7 @@ public struct NewTodoView: View {
     @State private var todoNewCategoryPresented = false
     @State private var remindMeCategory = false
     @State private var todoNewCategory = ""
-    @State private var todoDueDate = Date()
+    @State private var todoDueDate: Date?;
     @FocusState private var focused: Bool
     @State var allCategories = EventsService.shared.getCategories()
     public var store: EKEventStore;
@@ -91,7 +91,7 @@ public struct NewTodoView: View {
                         .focused($focused)
                     Spacer()
                     Button(action:
-                            {EventsService.shared.createReminder(todoName: todoName, todoDueDate: todoDueDate)}
+                            {EventsService.shared.createReminder(todoName: todoName, todoDueDate: nil, hasNotification: true)}
 ) {
                         Text("Add")
                     }

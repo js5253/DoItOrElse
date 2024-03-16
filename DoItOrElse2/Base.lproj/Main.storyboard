@@ -226,33 +226,6 @@
             </objects>
             <point key="canvasLocation" x="-306.1068702290076" y="34.507042253521128"/>
         </scene>
-        <!--Reminder Details View Controller-->
-        <scene sceneID="vbW-70-Y62">
-            <objects>
-                <viewController id="lq1-8U-E1X" customClass="ReminderDetailsViewController" customModule="DoItOrElse2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dDM-fY-dja">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ve-wz-fGt">
-                                <rect key="frame" x="16" y="48" width="63" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Nb2-b2-u1F"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="3ve-wz-fGt" firstAttribute="leading" secondItem="Nb2-b2-u1F" secondAttribute="leading" constant="16" id="c9b-lg-xXz"/>
-                            <constraint firstItem="3ve-wz-fGt" firstAttribute="top" secondItem="Nb2-b2-u1F" secondAttribute="top" constant="48" id="o23-uq-mCb"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dzn-kn-o3p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="552" y="-662"/>
-        </scene>
         <!--Item 1-->
         <scene sceneID="zks-kS-gwJ">
             <objects>
@@ -305,7 +278,6 @@
                                         <connections>
                                             <outlet property="todoDescription" destination="UjX-qu-WND" id="wXB-r8-0Oz"/>
                                             <outlet property="todoTitle" destination="63G-oe-A8G" id="5Wi-7L-Pma"/>
-                                            <segue destination="lq1-8U-E1X" kind="showDetail" id="UWB-Uf-dpg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
