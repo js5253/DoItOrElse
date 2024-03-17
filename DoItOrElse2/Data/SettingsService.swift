@@ -9,11 +9,12 @@ import Foundation
 import SwiftData
 
 @Model public class AppSettings {
-    var selected: Int = 0;
-
+    var selectedPunishment: Int = 0;
+    var owed: Int;
     
     init(selected: Int) {
-        self.selected = selected
+        self.selectedPunishment = selected
+        self.owed = 0;
     }
 }
 
@@ -38,6 +39,9 @@ class SettingsService {
         } catch {
             print(error)
         }
+    }
+    func resetOwed() {
+        
     }
     static func getSettings() -> AppSettings? {
         do {

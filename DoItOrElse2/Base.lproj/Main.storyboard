@@ -122,8 +122,8 @@
                                     <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Die-2r-V0r">
                                         <rect key="frame" x="0.0" y="0.0" width="197" height="150"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qad-DJ-09f">
-                                                <rect key="frame" x="13" y="79" width="159.66666666666666" height="57.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qad-DJ-09f">
+                                                <rect key="frame" x="13" y="34.666666666666664" width="159.66666666666666" height="101.66666666666669"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$40.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4Y-2j-aAa">
                                                         <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="37"/>
@@ -132,11 +132,22 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Of your money spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LqS-XU-6n0">
-                                                        <rect key="frame" x="0.0" y="37" width="159.66666666666666" height="20.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="42" width="159.66666666666666" height="20.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZN-2S-N7G">
+                                                        <rect key="frame" x="0.0" y="67.333333333333343" width="159.66666666666666" height="34.333333333333343"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="filled" title="Pay Now">
+                                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="onPayNowPressed:" destination="ZtU-7S-njH" eventType="primaryActionTriggered" id="ZhC-fE-mV2"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -432,6 +443,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYm-py-OU7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-306.1068702290076" y="-1264.0845070422536"/>
+        </scene>
+        <!--Punishment View Controller-->
+        <scene sceneID="DdF-it-CVg">
+            <objects>
+                <viewController storyboardIdentifier="PunishmentView" id="zW0-nm-MG0" customClass="PunishmentViewController" customModule="DoItOrElse2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3dg-ND-Gux">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donate: $45.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTN-0K-48N">
+                                <rect key="frame" x="16" y="784" width="119" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccx-9L-L4q">
+                                <rect key="frame" x="312" y="770" width="65" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Done"/>
+                                <connections>
+                                    <action selector="onDonePressed:" destination="zW0-nm-MG0" eventType="primaryActionTriggered" id="41f-lc-yN6"/>
+                                </connections>
+                            </button>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m3Y-Ml-lpd">
+                                <rect key="frame" x="16" y="59" width="361" height="703"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q1n-he-pxU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="m3Y-Ml-lpd" firstAttribute="top" secondItem="q1n-he-pxU" secondAttribute="top" id="4E8-YN-aCN"/>
+                            <constraint firstItem="q1n-he-pxU" firstAttribute="trailing" secondItem="m3Y-Ml-lpd" secondAttribute="trailing" constant="16" id="7sW-Pi-DmP"/>
+                            <constraint firstItem="q1n-he-pxU" firstAttribute="bottom" secondItem="pTN-0K-48N" secondAttribute="bottom" constant="13" id="BQ9-od-fsO"/>
+                            <constraint firstItem="pTN-0K-48N" firstAttribute="top" secondItem="m3Y-Ml-lpd" secondAttribute="bottom" constant="22" id="WnF-DF-cGc"/>
+                            <constraint firstItem="m3Y-Ml-lpd" firstAttribute="leading" secondItem="q1n-he-pxU" secondAttribute="leading" constant="16" id="elJ-3d-6HD"/>
+                            <constraint firstItem="q1n-he-pxU" firstAttribute="trailing" secondItem="ccx-9L-L4q" secondAttribute="trailing" constant="16" id="guJ-9E-y4y"/>
+                            <constraint firstItem="q1n-he-pxU" firstAttribute="bottom" secondItem="ccx-9L-L4q" secondAttribute="bottom" constant="13" id="mbU-Dq-5Zk"/>
+                            <constraint firstItem="pTN-0K-48N" firstAttribute="leading" secondItem="q1n-he-pxU" secondAttribute="leading" constant="16" id="w1n-vk-2sw"/>
+                            <constraint firstItem="ccx-9L-L4q" firstAttribute="top" secondItem="m3Y-Ml-lpd" secondAttribute="bottom" constant="8" symbolic="YES" id="z2k-XQ-GSE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="punishmentWebView" destination="m3Y-Ml-lpd" id="u8a-YL-2vc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="txc-BT-51q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="965.64885496183206" y="72.535211267605632"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qHx-Bs-mqa">

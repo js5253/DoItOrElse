@@ -56,6 +56,7 @@ class DIReminder: EKReminder {
             // setup code
             return instance
         }()
+        
         func createNewCategory(name: String) async -> Category? { // THIS SUCKS!!!
             await container?.mainContext.insert(Category(name: name))
             do {

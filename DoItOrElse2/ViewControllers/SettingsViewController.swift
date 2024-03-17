@@ -22,6 +22,12 @@ class SettingsViewController: ViewController {
     }
     @IBOutlet weak var tasksDueTodayLabel: UILabel!
     
+    @IBAction func onPayNowPressed(_ sender: Any) {
+        print("Pay now pressed!")
+        let storyboard = UIStoryboard(name: "PunishmentViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PunishmentViewController")
+        self.present(vc, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad();
         Task {

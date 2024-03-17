@@ -31,6 +31,7 @@
 		82FA91722BA5778700DBD0E5 /* Punishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91712BA5778700DBD0E5 /* Punishments.swift */; };
 		82FA91772BA61C4B00DBD0E5 /* ChoosePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91762BA61C4B00DBD0E5 /* ChoosePage.swift */; };
 		82FA91792BA61E4F00DBD0E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91782BA61E4F00DBD0E5 /* SettingsService.swift */; };
+		82FA917D2BA6C10100DBD0E5 /* PunishmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		82FA91712BA5778700DBD0E5 /* Punishments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Punishments.swift; sourceTree = "<group>"; };
 		82FA91762BA61C4B00DBD0E5 /* ChoosePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePage.swift; sourceTree = "<group>"; };
 		82FA91782BA61E4F00DBD0E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunishmentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 		82FA91732BA5779200DBD0E5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */,
 				82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */,
 				82D74F8C2B8562080031CBAA /* ViewController.swift */,
 				824846C52B96A45200AFAFA6 /* BegViewController.swift */,
@@ -335,6 +338,7 @@
 				82FA916C2BA21F7100DBD0E5 /* Utils.swift in Sources */,
 				82FA91722BA5778700DBD0E5 /* Punishments.swift in Sources */,
 				82D74FBD2B8593880031CBAA /* SheetAppDelegate.swift in Sources */,
+				82FA917D2BA6C10100DBD0E5 /* PunishmentViewController.swift in Sources */,
 				824846C42B96A0E900AFAFA6 /* CoreDataStack.swift in Sources */,
 				82CFF4642BA17BDE00689D4A /* MyTableViewCell.swift in Sources */,
 				8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */,
