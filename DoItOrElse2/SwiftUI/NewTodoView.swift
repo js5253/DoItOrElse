@@ -43,7 +43,6 @@ public struct NewTodoView: View {
     
     var dismissDelegate: DismissDelegate?
     
-    public var store: EKEventStore;
     
     private func add() {
     }
@@ -130,3 +129,62 @@ public struct NewTodoView: View {
     }
 }
 
+
+import SwiftUI
+import SwiftData
+//struct NewTodoView: View {
+//    @State private var name: String = ""
+//    @State private var customCategory: String = ""
+//    @State private var selectedCategory: String?;
+//    @State private var todoNewCategorySelected = false;
+//    @Query var categories: [Category] = EventsService.shared.getCategoriesSync()
+//
+//    var dismissDelegate: DismissDelegate?
+//
+//    init() {
+//        name = ""
+//        selectedCategory = nil;
+//    }
+//    private func newCategory() {
+//    
+//            Task {
+//                let newCategory = await EventsService.shared.createNewCategory(name: customCategory)
+////                categories = await EventsService.shared.getCategories();
+//                selectedCategory = customCategory;
+//                //                todoNewCategoryPresented = false;
+//                customCategory = ""
+//            }
+//        }
+//    var body: some View {
+//        NavigationStack {
+//            Form {
+//                TextField("Item", text: $name)
+//                
+//                Picker("Category", selection: $selectedCategory) {
+//                    Text("Select a category").tag(nil as Category?)
+//                    ForEach(categories) { category in
+//                        Text(category.name).tag(category.name)
+//                    }
+//                    Text("New Category").tag("New")
+//                }.onChange(of: selectedCategory, perform: {
+//                    selectedCategory in
+//                    if (selectedCategory == "New") {
+//                        todoNewCategorySelected = true
+//                    }
+//                })
+//                Button(action:  {
+//                }) {
+//                    Text("Add")
+//                }
+//                
+//            }
+//            .alert("Create a new category", isPresented: $todoNewCategorySelected) {
+//                                    TextField("ASSA", text: $customCategory)
+//                                    Button(action: newCategory) {
+//                                        Text("OK")
+//                                    }
+//                                }
+//        }.modelContainer(for: Category.self)
+//    }
+//        
+//}

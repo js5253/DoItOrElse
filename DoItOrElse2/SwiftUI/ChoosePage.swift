@@ -27,7 +27,7 @@ struct ChoosePage: View {
 //                Text(punishment.name).font(.title3)
                 Button(action: onPress) {
 //                    Text("ASSASAAS")
-                    Text(String(settings.selected))
+//                    Text(String(settings.selected))
                 }
                 Text(punishment.description)
             }

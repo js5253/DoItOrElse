@@ -20,7 +20,7 @@ class PunishmentViewController : ViewController {
         punishmentWebView.load(myRequest)
     }
     @IBAction func onDonePressed(_ sender: Any) {
-        AppSettings.shared.resetOwed()
+//        AppSettings.shared.resetOwed()
     }
     
 }

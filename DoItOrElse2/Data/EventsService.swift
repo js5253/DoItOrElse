@@ -56,8 +56,7 @@ class DIReminder: EKReminder {
             // setup code
             return instance
         }()
-        
-        func createNewCategory(name: String) async -> Category? { // THIS SUCKS!!!
+                func createNewCategory(name: String) async -> Category? { // THIS SUCKS!!!
             await container?.mainContext.insert(Category(name: name))
             do {
                 try await container?.mainContext.save()
@@ -79,11 +78,25 @@ class DIReminder: EKReminder {
             print("Get categories")
             do {
                 let data = try await container?.mainContext.fetch(FetchDescriptor<Category>())
+
                 print("DATA", data)
                 return data!
             } catch {
                 return []
             }
+        }
+        func getCategoriesSync() -> [Category] {
+            Task {
+                do {
+                    let data = try await container?.mainContext.fetch(FetchDescriptor<Category>())
+                    return data;
+
+                }
+                catch {
+                    return []
+                }
+            }
+            return []
         }
         
         func attachCategoryToEvent(id: String) {
@@ -98,7 +111,8 @@ class DIReminder: EKReminder {
                     idk, err in
                     print("notifications:", idk, err)
                 })
-                container = try ModelContainer(for: Category.self);
+                var config = ModelConfiguration(isStoredInMemoryOnly: false)
+                container = try ModelContainer(for: Category.self, configurations: config);
             } catch {
                 print(error)
             }

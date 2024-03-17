@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
 
     @IBAction func onTouchDown(_ sender: UITextField) {
-        var newTodoView = NewTodoView(store: store)
+        var newTodoView = NewTodoView()
         newTodoView.dismissDelegate = self
         let hostingController = UIHostingController(rootView: newTodoView)
         hostingController.modalPresentationStyle = .pageSheet
