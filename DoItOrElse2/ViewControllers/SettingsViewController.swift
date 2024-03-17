@@ -16,6 +16,7 @@ class SettingsViewController: ViewController {
     @IBOutlet weak var punishmentButton: UIButton!
     @IBOutlet weak var missedTaskTableView: UITableView!
     private var overdueReminders: [EKReminder] = [];
+    @IBOutlet weak var hoursLeftBadge: UIButton!
     
     
     @IBAction func chooseButton(_ sender: Any) {
@@ -39,6 +40,7 @@ class SettingsViewController: ViewController {
         super.viewDidLoad();
         missedTaskTableView.delegate = self;
         missedTaskTableView.dataSource = self;
+        hoursLeftBadge.setTitle(String(Utils.hoursLeftInDay()!), for: .disabled)
         Task {
             overdueReminders = await EventsService.shared.getOverdueUnfinishedReminders()
             moneySpentHeadingLabel.text = await "$" + String( EventsService.shared.getAmountOwed())

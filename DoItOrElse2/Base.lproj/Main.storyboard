@@ -178,18 +178,18 @@
                                         <rect key="frame" x="212" y="0.0" width="149" height="150"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="SpS-zp-hQ2">
-                                                <rect key="frame" x="8" y="79.333333333333343" width="218" height="62.333333333333343"/>
+                                                <rect key="frame" x="8.0000000000000071" y="79.333333333333343" width="124.66666666666669" height="62.333333333333343"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlY-bR-fId">
-                                                        <rect key="frame" x="0.0" y="0.0" width="218" height="37"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="37"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QW-Cy-Tzz">
-                                                        <rect key="frame" x="0.0" y="42" width="218" height="20.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="42" width="124.66666666666667" height="20.333333333333329"/>
                                                         <attributedString key="attributedText">
-                                                            <fragment content="tasks due today or tomorrow">
+                                                            <fragment content="tasks due today ">
                                                                 <attributes>
                                                                     <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <font key="NSFont" metaFont="system" size="17"/>
@@ -283,6 +283,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Za-1E-xC7">
+                                <rect key="frame" x="290" y="313" width="89.666666666666686" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="8H LEFT"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="v3L-g9-rq2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -290,6 +295,8 @@
                             <constraint firstItem="cM6-pf-KNV" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="080-aC-SGZ"/>
                             <constraint firstItem="v3L-g9-rq2" firstAttribute="trailing" secondItem="Kru-r7-7M2" secondAttribute="trailing" constant="16" id="53y-JB-458"/>
                             <constraint firstItem="ofW-RR-fdD" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="6QF-D3-djo"/>
+                            <constraint firstItem="v3L-g9-rq2" firstAttribute="trailing" secondItem="6Za-1E-xC7" secondAttribute="trailing" constant="13.333333333333314" id="9MP-eX-vvF"/>
+                            <constraint firstItem="6Za-1E-xC7" firstAttribute="top" secondItem="sBR-aw-xbB" secondAttribute="bottom" constant="7.6666666666666856" id="FJl-tX-cMe"/>
                             <constraint firstItem="A4Y-2j-aAa" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="29" id="HcR-Md-pxu"/>
                             <constraint firstItem="PCq-1d-ndX" firstAttribute="top" secondItem="Die-2r-V0r" secondAttribute="bottom" constant="17" id="J6o-QN-56k"/>
                             <constraint firstItem="wqP-bs-1H8" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="JxQ-dV-Lrh"/>
@@ -310,6 +317,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="OHP-0c-Glb"/>
                     <connections>
+                        <outlet property="hoursLeftBadge" destination="6Za-1E-xC7" id="OKQ-gt-r1A"/>
                         <outlet property="missedTaskTableView" destination="Kru-r7-7M2" id="loW-8o-a29"/>
                         <outlet property="missedTasksLabel" destination="hEV-2b-QdE" id="h9a-F5-BzA"/>
                         <outlet property="moneySpentHeadingLabel" destination="A4Y-2j-aAa" id="A3u-kJ-WX1"/>
