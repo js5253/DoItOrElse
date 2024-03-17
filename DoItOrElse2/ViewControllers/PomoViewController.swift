@@ -10,10 +10,12 @@ import UIKit
 
 class PomoViewController: UIViewController {
     @IBOutlet weak var timesUpLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!;
     @IBOutlet var pomoInfoView: UIView!
 //    @IBOutlet weak var pomoTimeBox: UITextField!
-    var timeLeft = 0;
+    @IBOutlet weak var timePicker: UIDatePicker!
+    var timeLeft = 60;
     var timerOn = false;
     var timer: Timer? = nil;
     var uiTimer: Timer? = nil;
@@ -26,6 +28,7 @@ class PomoViewController: UIViewController {
     @IBAction func onStartTimerPressed(_ sender: Any) {
         if timerOn {
             timer!.invalidate();
+            uiTimer!.invalidate();
             timerOn = false;
             startButton.setTitle("Start Pomo", for: .normal)
             pomoInfoView.isHidden = false;
@@ -33,26 +36,37 @@ class PomoViewController: UIViewController {
             startLoop(1);
         }
     }
-    func startLoop(_ minutes: Int) {
-        timesUpLabel.isHidden = true;
+    @IBAction func onTimePickerChanged(_ sender: UIDatePicker) {
+        let hours = Calendar.current.component(.hour, from: sender.date);
+        var minutes = Calendar.current.component(.minute, from: sender.date);
+        
+        minutes += (60 * hours);
+        
         timeLeft = minutes * 60
+    }
+    func startLoop(_ minutes: Int) {
+        print("Timer set for \(timeLeft) seconds")
+        timesUpLabel.isHidden = true;
         timerOn = true;
+        timePicker.isHidden = true
+        timeLabel.isHidden = false
         startButton.setTitle("Stop Pomo", for: .normal)
-        let loop = RunLoop.main;
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeLeft), repeats: false, block: { [self]_ in
             startButton.setTitle("Start Pomo", for: .normal);
             timerOn = false;
             timesUpLabel.isHidden = false;
-            print("Hello world aaaaa")
+            print("Timer Started...")
             pomoInfoView.isHidden = false;
         })
         uiTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true, block: {[self]_ in
-            print("ASASASASAS")
+            print("Tick Started")
             DispatchQueue.main.async {
                 self.timeLeft -= 1;
-//                self.pomoTimeBox.text = String(self.timeLeft);
+                self.timeLabel.text = String(self.timeLeft);
             }
             if (self.timeLeft <= 1) {
+                timePicker.isHidden = false;
+                timeLabel.isHidden = true;
                 // sound alarm
                 timerOn = false;
                 uiTimer?.invalidate();
@@ -60,6 +74,15 @@ class PomoViewController: UIViewController {
                 startButton.setTitle("Start Pomo", for: .normal)
             }
         })
+        let notification = UNMutableNotificationContent()
+        notification.title = "Pomo Over!"
+        notification.body = "Time to take a break or something"
+        notification.sound = .default;
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeLeft), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: notification, trigger: trigger)
+        print("Notification scheduled for", trigger)
 //        loop.add(timer!, forMode: .common);
 //        loop.add(uiTimer!, forMode: .common);
     }

@@ -25,12 +25,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var todoTable: UITableView!
+    @IBOutlet weak var hoursLeftLabel: UILabel!
     @IBOutlet weak var demoButton: UIButton!
     @IBOutlet weak var tasksTableView: UITableView!;
     
     func didDismissSwiftUIView() {
             // Perform your desired function here
-            print("SwiftUI View was dismissed. Do something here.")
+        Task {
+            let rem = await EventsService.shared.getAllReminders()
+            await MainActor.run {
+                self.reminders = rem ?? []
+                if (tasksTableView != nil) {
+                     // BUG
+                    self.tasksTableView.reloadData() // Reload the table view on the main thread
+                }
+            }
+        }
         }
 
     @IBAction func onTouchDown(_ sender: UITextField) {
@@ -72,7 +82,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.layoutIfNeeded()
-        headerLabel.text = Utils.getRandomHeading()
+        
+        let hoursLeft = Utils.hoursLeftInDay()!;
+        if (hoursLeft < 6) {
+            hoursLeftLabel.textColor = .orange
+        } else if (hoursLeft < 3) {
+            hoursLeftLabel.textColor = .red
+        }
+        if (hoursLeftLabel != nil) {
+            hoursLeftLabel.text = "\(hoursLeft) hours left"
+        }
+        
+        if (headerLabel != nil) {
+            headerLabel.text = Utils.getRandomHeading()
+        }
         if (tasksTableView != nil) {
             tasksTableView.dataSource = self;
             tasksTableView.delegate = self;

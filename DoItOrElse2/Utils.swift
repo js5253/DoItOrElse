@@ -43,5 +43,14 @@ class Utils {
         let headings = ["Welcome back", "Welcome to the Journey", "Rise and Shine"]
         return headings[Int.random(in:0...(headings.count - 1))]
     }
+    static func hoursLeftInDay() -> Int? {
+        // Get the current calendar and current date
+        let calendar = Calendar.current
+        let currentDate = Date()
+        
+        let currentHour = calendar.component(.hour, from: currentDate);
+        
+        return 24 - currentHour;
 
+    }
 }

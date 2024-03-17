@@ -155,6 +155,9 @@ class DIReminder: EKReminder {
                 
                 return amountOwed ?? 0
             }
+        func getReminderById(_ identifier: String) -> EKReminder {
+            return store?.calendarItem(withIdentifier: identifier) as! EKReminder
+        }
         func createReminder(todoName: String, todoDueDate: Date?, hasNotification: Bool) {
             let ev = EKReminder(eventStore: store!)
             ev.title = todoName;
@@ -175,7 +178,7 @@ class DIReminder: EKReminder {
                             content.title = todoName
                             content.body = "fuckin dogshit ass app"
                             
-                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
                             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                             try await center.add(request)
                     }

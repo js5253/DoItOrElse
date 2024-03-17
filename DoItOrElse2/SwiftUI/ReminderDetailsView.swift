@@ -15,14 +15,14 @@ public struct ReminderDetailsView: View {
     
     init(reminderId: String? = nil, reminder: EKReminder? = nil) {
         self.reminderId = reminderId
-//        self.reminder = EventsService.shared.getReminderById(reminderId!);
+        self.reminder = EventsService.shared.getReminderById(reminderId!);
     }
     public var body: some View {
         VStack {
             Text(reminder!.title!)
-            Text((reminder!.startDateComponents?.description)!)
+            Text(reminder!.startDateComponents?.description ?? "")
             Button(action: {}) {
-                Text("Delete Reminder")
+                Text("Delete Reminder").foregroundStyle(.red)
             }
 //            .background(Color.red)
             .buttonStyle(.bordered)

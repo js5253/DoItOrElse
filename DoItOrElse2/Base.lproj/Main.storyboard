@@ -32,8 +32,17 @@
                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleFootnote"/>
                                         </buttonConfiguration>
                                     </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-ax-SSW">
+                                        <rect key="frame" x="0.0" y="33.666666666666686" width="320" height="0.0"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <color key="textColor" systemColor="systemTealColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tL-Jn-fz7">
                                         <rect key="frame" x="0.0" y="38" width="320" height="216"/>
+                                        <connections>
+                                            <action selector="onTimePickerChanged:" destination="GIT-6j-fzh" eventType="valueChanged" id="nfI-fe-1af"/>
+                                        </connections>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-oR-w04">
                                         <rect key="frame" x="0.0" y="261.66666666666663" width="320" height="34.333333333333314"/>
@@ -84,6 +93,8 @@
                     <connections>
                         <outlet property="pomoInfoView" destination="scx-Ub-aXV" id="nsQ-Oc-YCz"/>
                         <outlet property="startButton" destination="wkv-oR-w04" id="tPP-MJ-aSq"/>
+                        <outlet property="timeLabel" destination="Joj-ax-SSW" id="Yci-Ks-F5z"/>
+                        <outlet property="timePicker" destination="6tL-Jn-fz7" id="eLz-qf-BEQ"/>
                         <outlet property="timesUpLabel" destination="wEw-YA-wZI" id="BcN-9J-Oe1"/>
                     </connections>
                 </viewController>
@@ -295,11 +306,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hours Left" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Afy-MZ-q9H">
+                                <rect key="frame" x="283" y="59" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="niH-5j-ozi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="UHV-60-wEt" firstAttribute="top" secondItem="eis-5j-orS" secondAttribute="bottom" constant="7.3333333333333428" id="BGX-c7-kDc"/>
+                            <constraint firstItem="Afy-MZ-q9H" firstAttribute="top" secondItem="niH-5j-ozi" secondAttribute="top" id="CxY-k5-NiK"/>
                             <constraint firstItem="niH-5j-ozi" firstAttribute="trailing" secondItem="UHV-60-wEt" secondAttribute="trailing" constant="16" id="ICM-bD-Z0M"/>
                             <constraint firstItem="niH-5j-ozi" firstAttribute="bottom" secondItem="9S4-wx-ZCJ" secondAttribute="bottom" id="K3K-a0-ihc"/>
                             <constraint firstItem="niH-5j-ozi" firstAttribute="trailing" secondItem="9S4-wx-ZCJ" secondAttribute="trailing" constant="16" id="PjI-l9-qTU"/>
@@ -307,12 +325,14 @@
                             <constraint firstItem="9S4-wx-ZCJ" firstAttribute="leading" secondItem="niH-5j-ozi" secondAttribute="leading" constant="16" id="Wsl-q5-dJg"/>
                             <constraint firstItem="eis-5j-orS" firstAttribute="leading" secondItem="niH-5j-ozi" secondAttribute="leading" constant="16" id="X0h-EU-ILP"/>
                             <constraint firstItem="9S4-wx-ZCJ" firstAttribute="top" secondItem="UHV-60-wEt" secondAttribute="bottom" constant="8" symbolic="YES" id="ftf-iu-HuD"/>
+                            <constraint firstItem="niH-5j-ozi" firstAttribute="trailing" secondItem="Afy-MZ-q9H" secondAttribute="trailing" constant="16" id="gie-qj-ZC2"/>
                             <constraint firstItem="eis-5j-orS" firstAttribute="top" secondItem="niH-5j-ozi" secondAttribute="top" id="rsn-1x-UfX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="6xT-k4-6K4"/>
                     <connections>
                         <outlet property="headerLabel" destination="eis-5j-orS" id="dG2-VD-1d2"/>
+                        <outlet property="hoursLeftLabel" destination="Afy-MZ-q9H" id="jgA-pS-Epi"/>
                         <outlet property="tasksTableView" destination="UHV-60-wEt" id="aZo-eY-9Ae"/>
                         <outlet property="todoTable" destination="UHV-60-wEt" id="Ppb-zn-GeW"/>
                     </connections>
@@ -348,7 +368,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Write something here, and I'm sure the genie will rule in your favor..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Unf-0u-eOd">
-                                <rect key="frame" x="16" y="209" width="361" height="162"/>
+                                <rect key="frame" x="16" y="209" width="361" height="211"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -363,7 +383,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xhO-7u-AF6">
-                                <rect key="frame" x="16" y="421.33333333333331" width="361" height="161.99999999999994"/>
+                                <rect key="frame" x="16" y="470.33333333333326" width="361" height="162"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="AWo-Wo-J2Z"/>
@@ -373,20 +393,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-vS-7qg">
+                                <rect key="frame" x="16" y="430" width="361" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OlP-1f-IEM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mlN-vS-7qg" firstAttribute="leading" secondItem="OlP-1f-IEM" secondAttribute="leading" constant="16" id="4eM-JB-jJu"/>
                             <constraint firstItem="4uS-eA-dbh" firstAttribute="leading" secondItem="OlP-1f-IEM" secondAttribute="leading" constant="16" id="6Iw-Qe-j4u"/>
                             <constraint firstItem="Kcm-AU-xk4" firstAttribute="top" secondItem="Unf-0u-eOd" secondAttribute="bottom" constant="8" symbolic="YES" id="F1r-6b-Dln"/>
                             <constraint firstItem="2F6-2K-kBi" firstAttribute="top" secondItem="4uS-eA-dbh" secondAttribute="bottom" constant="2" id="KZU-wf-F4w"/>
                             <constraint firstItem="Unf-0u-eOd" firstAttribute="top" secondItem="2F6-2K-kBi" secondAttribute="bottom" constant="57" id="Pdq-Jo-2Op"/>
+                            <constraint firstItem="OlP-1f-IEM" firstAttribute="trailing" secondItem="mlN-vS-7qg" secondAttribute="trailing" constant="16" id="QFa-fi-dsg"/>
                             <constraint firstItem="Kcm-AU-xk4" firstAttribute="leading" secondItem="OlP-1f-IEM" secondAttribute="leading" constant="16" id="RAm-sf-zoI"/>
                             <constraint firstItem="J6m-rR-2Ih" firstAttribute="leading" secondItem="OlP-1f-IEM" secondAttribute="leading" constant="16" id="V39-7n-PU0"/>
                             <constraint firstItem="OlP-1f-IEM" firstAttribute="trailing" secondItem="xhO-7u-AF6" secondAttribute="trailing" constant="16" id="VoD-oS-YPA"/>
                             <constraint firstItem="xhO-7u-AF6" firstAttribute="top" secondItem="Kcm-AU-xk4" secondAttribute="bottom" constant="8" symbolic="YES" id="YqU-wA-m8c"/>
                             <constraint firstItem="J6m-rR-2Ih" firstAttribute="top" secondItem="OlP-1f-IEM" secondAttribute="top" id="aPd-Kg-gOX"/>
                             <constraint firstItem="2F6-2K-kBi" firstAttribute="leading" secondItem="OlP-1f-IEM" secondAttribute="leading" constant="16" id="cmI-bn-eT0"/>
+                            <constraint firstItem="mlN-vS-7qg" firstAttribute="top" secondItem="Kcm-AU-xk4" secondAttribute="bottom" constant="8" symbolic="YES" id="fXK-kW-yfL"/>
                             <constraint firstItem="OlP-1f-IEM" firstAttribute="trailing" secondItem="Kcm-AU-xk4" secondAttribute="trailing" constant="16" id="fmO-bH-BrF"/>
                             <constraint firstItem="4uS-eA-dbh" firstAttribute="top" secondItem="J6m-rR-2Ih" secondAttribute="bottom" constant="8" symbolic="YES" id="ifV-qE-fh0"/>
                             <constraint firstItem="OlP-1f-IEM" firstAttribute="bottom" secondItem="Unf-0u-eOd" secondAttribute="bottom" constant="398" id="lyB-kv-KwO"/>
@@ -418,7 +446,6 @@
                         <segue destination="LGQ-Vm-gn5" kind="relationship" relationship="viewControllers" id="zlw-RJ-5QJ"/>
                         <segue destination="ZtU-7S-njH" kind="relationship" relationship="viewControllers" id="afv-PO-1ba"/>
                         <segue destination="GIT-6j-fzh" kind="relationship" relationship="viewControllers" id="40I-eW-ip6"/>
-                        <segue destination="nbv-1L-8ag" kind="relationship" relationship="viewControllers" id="NMl-dN-GTI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZC-nX-beN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -444,6 +471,9 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
