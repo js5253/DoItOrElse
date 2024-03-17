@@ -23,23 +23,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aKl-69-fnk">
-                                <rect key="frame" x="142" y="357.33333333333331" width="109.33333333333331" height="113.66666666666669"/>
+                                <rect key="frame" x="36.666666666666657" y="266" width="320" height="296"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJE-im-HhJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="29.666666666666668"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="29.666666666666668"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Pick Task">
                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleFootnote"/>
                                         </buttonConfiguration>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQf-pq-H7X">
-                                        <rect key="frame" x="0.0" y="37.666666666666686" width="109.33333333333333" height="33.666666666666657"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tL-Jn-fz7">
+                                        <rect key="frame" x="0.0" y="38" width="320" height="216"/>
+                                    </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-oR-w04">
-                                        <rect key="frame" x="0.0" y="79.333333333333371" width="109.33333333333333" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="261.66666666666663" width="320" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Start Pomo">
                                             <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
@@ -85,7 +82,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="aoL-Jb-Oxe"/>
                     <connections>
-                        <outlet property="pomoInfoLabel" destination="VQf-pq-H7X" id="Tcj-ae-ZAy"/>
                         <outlet property="pomoInfoView" destination="scx-Ub-aXV" id="nsQ-Oc-YCz"/>
                         <outlet property="startButton" destination="wkv-oR-w04" id="tPP-MJ-aSq"/>
                         <outlet property="timesUpLabel" destination="wEw-YA-wZI" id="BcN-9J-Oe1"/>
@@ -201,18 +197,35 @@
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sBR-aw-xbB">
+                                <rect key="frame" x="301.33333333333331" y="271" width="77.666666666666686" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="WEEK1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofW-RR-fdD">
+                                <rect key="frame" x="15.999999999999986" y="309" width="229.66666666666663" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Choose where it all goes to"/>
+                                <connections>
+                                    <action selector="chooseButton:" destination="ZtU-7S-njH" eventType="primaryActionTriggered" id="Q8L-1D-Nsg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="v3L-g9-rq2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cM6-pf-KNV" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="080-aC-SGZ"/>
+                            <constraint firstItem="ofW-RR-fdD" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="6QF-D3-djo"/>
                             <constraint firstItem="A4Y-2j-aAa" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="29" id="HcR-Md-pxu"/>
                             <constraint firstItem="PCq-1d-ndX" firstAttribute="top" secondItem="Die-2r-V0r" secondAttribute="bottom" constant="17" id="J6o-QN-56k"/>
                             <constraint firstItem="wqP-bs-1H8" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="JxQ-dV-Lrh"/>
                             <constraint firstItem="cM6-pf-KNV" firstAttribute="top" secondItem="v3L-g9-rq2" secondAttribute="top" id="QPS-Kb-gPB"/>
+                            <constraint firstItem="ofW-RR-fdD" firstAttribute="top" secondItem="PCq-1d-ndX" secondAttribute="bottom" constant="7.6666666666666856" id="bCR-Bo-FSH"/>
                             <constraint firstItem="PCq-1d-ndX" firstAttribute="leading" secondItem="v3L-g9-rq2" secondAttribute="leading" constant="16" id="cnc-UD-BrB"/>
                             <constraint firstItem="v3L-g9-rq2" firstAttribute="trailing" secondItem="wqP-bs-1H8" secondAttribute="trailing" constant="16" id="dCb-zq-s1f"/>
+                            <constraint firstItem="v3L-g9-rq2" firstAttribute="trailing" secondItem="sBR-aw-xbB" secondAttribute="trailing" constant="14" id="eS2-Z3-qJ6"/>
                             <constraint firstItem="v3L-g9-rq2" firstAttribute="bottom" secondItem="wqP-bs-1H8" secondAttribute="bottom" constant="511" id="hTw-9s-o8o"/>
+                            <constraint firstItem="sBR-aw-xbB" firstAttribute="top" secondItem="KnE-vA-p9I" secondAttribute="bottom" constant="13" id="j7d-uJ-i6D"/>
                             <constraint firstItem="wqP-bs-1H8" firstAttribute="top" secondItem="cM6-pf-KNV" secondAttribute="bottom" constant="8.3333333333333428" id="siY-FD-baP"/>
                         </constraints>
                     </view>

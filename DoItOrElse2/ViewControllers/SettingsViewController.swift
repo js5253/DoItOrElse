@@ -7,10 +7,19 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class SettingsViewController: ViewController {
     @IBOutlet weak var moneySpentHeadingLabel: UILabel!
-    
+    @IBAction func chooseButton(_ sender: Any) {
+        let hostingController = UIHostingController(rootView: ChoosePage())
+        hostingController.modalPresentationStyle = .pageSheet
+
+        hostingController.view.sizeToFit()
+        // Present the hosting controller as a sheet
+        present(hostingController, animated: true, completion: nil)
+
+    }
     @IBOutlet weak var tasksDueTodayLabel: UILabel!
     
     override func viewDidLoad() {

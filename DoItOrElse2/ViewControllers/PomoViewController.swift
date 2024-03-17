@@ -12,7 +12,7 @@ class PomoViewController: UIViewController {
     @IBOutlet weak var timesUpLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!;
     @IBOutlet var pomoInfoView: UIView!
-    @IBOutlet weak var pomoInfoLabel: UILabel!
+//    @IBOutlet weak var pomoTimeBox: UITextField!
     var timeLeft = 0;
     var timerOn = false;
     var timer: Timer? = nil;
@@ -20,7 +20,7 @@ class PomoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         print("Pomo")
-        pomoInfoLabel.text = String(timeLeft)
+//        pomoTimeBox.text = String(timeLeft)
         
     }
     @IBAction func onStartTimerPressed(_ sender: Any) {
@@ -50,7 +50,7 @@ class PomoViewController: UIViewController {
             print("ASASASASAS")
             DispatchQueue.main.async {
                 self.timeLeft -= 1;
-                self.pomoInfoLabel.text = String(self.timeLeft);
+//                self.pomoTimeBox.text = String(self.timeLeft);
             }
             if (self.timeLeft <= 1) {
                 // sound alarm

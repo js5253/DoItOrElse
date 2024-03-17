@@ -14,47 +14,65 @@ enum TodoItemState {
     case Normal
     case DueSoon
 }
+enum TodoStaticOptions: String, CaseIterable {
+    case None
+    case New
+}
+enum TodoRepeat: String, CaseIterable {
+    case Never
+    case PerDay
+    case PerWeek
+}
 import SwiftUI
 import EventKit
 import SwiftData
 public struct NewTodoView: View {
-    @State private var todoType = 0
+    @State private var todoType: TodoItemType = .ToDo;
+    @State private var todoRepeat: TodoRepeat = .Never;
     @State private var todoName = ""
-    @State private var todoCategory = "No Category"
+    @State private var todoCategoryId: String = "None";
     @State private var todoCategoryColorSelection = Color(.black)
     @State private var todoNewCategoryPresented = false
     @State private var remindMeCategory = false
     @State private var todoNewCategory = ""
     @State private var todoDueDate: Date?;
     @FocusState private var focused: Bool
-    @State var allCategories = EventsService.shared.getCategories()
+    @Query() private var allCats: [Category]
+    @State var allCategories: [Category]?;
+    @Environment(\.presentationMode) var presentationMode
+    
+    var dismissDelegate: DismissDelegate?
+    
     public var store: EKEventStore;
     
     private func add() {
     }
     private func newCategory() {
         Task {
-            await EventsService.shared.createNewCategory(name: todoName)
+            let newCategory = await EventsService.shared.createNewCategory(name: todoNewCategory)
+            allCategories = await EventsService.shared.getCategories();
+            todoCategoryId = todoNewCategory;
+            todoNewCategoryPresented = false;
+            todoNewCategory = ""
         }
-        allCategories = EventsService.shared.getCategories();
-        todoCategory = todoName;
+    }
+     func viewDidAppear() {
+        
     }
     
     
-    let categories = ["No Category", "New Category"]
-    let repeatTimes = ["Daily", "Weekly", "Monthly"]
     public var body: some View {
             VStack {
                 Text("New To-Do Item").font(.title)
                 HStack {
-                    Picker("Category", selection: $todoCategory) {
-                        Text("No Category").tag("No Category")
-                        ForEach(allCategories, id: \.self) {category in
-                            Text(category.name!).tag(category.name!)
+                    Picker("Category", selection: $todoCategoryId) {
+                        Text("None").tag("None")
+                        ForEach(allCategories ?? [], id: \.self) {category in
+                            Text(category.name).tag(category.name)
                         }
-                        Text("New Category").tag("New Category")
-                    }.onChange(of: todoCategory, {
-                        if (todoCategory == "New Category") {
+                        Text("New Category").tag("New")
+                    }.onChange(of: todoCategoryId, {
+                        if (todoCategoryId == "New") {
                             todoNewCategoryPresented = true
                         }
                     })
@@ -64,10 +82,9 @@ public struct NewTodoView: View {
                             Text("OK")
                         }
                     }
-                    Picker("Repeat", selection: $todoCategory) {
-                        Text("Repeat")
-                        ForEach(repeatTimes, id: \.self) { string in
-                            Text(string)
+                    Picker("Repeat", selection: $todoRepeat) {
+                        ForEach(TodoRepeat.allCases, id: \.self) { item in
+                            Text(item.rawValue)
                         }
                     }
                 }
@@ -81,8 +98,8 @@ public struct NewTodoView: View {
 //                    }
 //                }
                 Picker("What's this type of thing?", selection: $todoType) {
-                    Text("To-Do").tag(0)
-                    Text("Habit").tag(1)
+                    Text("To-Do").tag(TodoItemType.ToDo)
+                    Text("Habit").tag(TodoItemType.Habit)
                 }.pickerStyle(.segmented)
                 HStack {
                     TextField("To-Do", text: $todoName)
@@ -91,7 +108,12 @@ public struct NewTodoView: View {
                         .focused($focused)
                     Spacer()
                     Button(action:
-                            {EventsService.shared.createReminder(todoName: todoName, todoDueDate: nil, hasNotification: true)}
+                            { 
+                        Task {
+                            EventsService.shared.createReminder(todoName: todoName, todoDueDate: nil, hasNotification: true)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        }
 ) {
                         Text("Add")
                     }
@@ -104,6 +126,7 @@ public struct NewTodoView: View {
                 focused = true
             }
             .modelContainer(for: Category.self)
-        }
+            .onDisappear(perform: dismissDelegate?.didDismissSwiftUIView)
     }
+}
 

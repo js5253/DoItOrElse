@@ -9,7 +9,12 @@ import UIKit
 import EventKit
 import SwiftUI
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol DismissDelegate {
+    func didDismissSwiftUIView()
+}
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DismissDelegate {
+    
     
     var reminders: [EKReminder] = [];
     var store: EKEventStore = EKEventStore();
@@ -22,9 +27,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var todoTable: UITableView!
     @IBOutlet weak var demoButton: UIButton!
     @IBOutlet weak var tasksTableView: UITableView!;
+    
+    func didDismissSwiftUIView() {
+            // Perform your desired function here
+            print("SwiftUI View was dismissed. Do something here.")
+        }
+
     @IBAction func onTouchDown(_ sender: UITextField) {
-        let hostingController = UIHostingController(rootView: NewTodoView(store: store))
+        var newTodoView = NewTodoView(store: store)
+        newTodoView.dismissDelegate = self
+        let hostingController = UIHostingController(rootView: newTodoView)
         hostingController.modalPresentationStyle = .pageSheet
+
+        hostingController.view.sizeToFit()
         // Present the hosting controller as a sheet
         present(hostingController, animated: true, completion: nil)
         
@@ -35,12 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let viewController = storyboard.instantiateViewController(withIdentifier: "SomeView") as? SheetViewController {
             
             if let sheet = viewController.sheetPresentationController {
-                sheet.detents = [
-                    .custom {
-                        _ in
-                        return 400
-                    }]
-                viewController.modalPresentationStyle = .formSheet
+                viewController.modalPresentationStyle = .pageSheet
                 present(viewController, animated: true, completion: nil)
             }
         }
@@ -60,15 +70,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     override func viewDidLoad() {
-        print("hello world")
         super.viewDidLoad()
         self.view.layoutIfNeeded()
+        headerLabel.text = Utils.getRandomHeading()
         if (tasksTableView != nil) {
             tasksTableView.dataSource = self;
             tasksTableView.delegate = self;
         }
-                
+        let center = EventsService.shared.center;
+        Task {
+            let notifs = await center.pendingNotificationRequests();
+            print(notifs)
+            notifs.forEach({
+                notif in
+                if (!notif.content.title.contains("Time to Do it... or Else")) {
+                    let content = UNMutableNotificationContent();
+                    content.title = "Time to Do it... or Else"
+                    content.body = "You have unfinished tasks, do them!"
+                    content.sound = .defaultCritical
+                    let interval = Utils.getDateFiveHoursBeforeEndOfToday()!.timeIntervalSinceNow
+                    if (interval < 60) {return}
+                    let dailyNot = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true))
+                    center.add(dailyNot)
+                }
+            })
+//            if (center.getPendingNotificationRequests(completionHandler: {
+//        }
     }
+}
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let theDestination = (segue.destination as! ReminderDetailsView)
 //        theDestination.selectedId = selected

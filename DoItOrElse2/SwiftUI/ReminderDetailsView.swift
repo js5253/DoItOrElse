@@ -15,7 +15,7 @@ public struct ReminderDetailsView: View {
     
     init(reminderId: String? = nil, reminder: EKReminder? = nil) {
         self.reminderId = reminderId
-        self.reminder = EventsService.shared.getReminderById(reminderId!);
+//        self.reminder = EventsService.shared.getReminderById(reminderId!);
     }
     public var body: some View {
         VStack {
