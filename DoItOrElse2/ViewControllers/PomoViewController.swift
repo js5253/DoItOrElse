@@ -10,6 +10,7 @@ import UIKit
 
 class PomoViewController: UIViewController {
     @IBOutlet weak var timesUpLabel: UILabel!
+    @IBOutlet weak var stopPomoButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!;
     @IBOutlet var pomoInfoView: UIView!
@@ -33,7 +34,7 @@ class PomoViewController: UIViewController {
             startButton.setTitle("Start Pomo", for: .normal)
             pomoInfoView.isHidden = false;
         } else {
-            startLoop(1);
+            startLoop();
         }
     }
     @IBAction func onTimePickerChanged(_ sender: UIDatePicker) {
@@ -44,13 +45,25 @@ class PomoViewController: UIViewController {
         
         timeLeft = minutes * 60
     }
-    func startLoop(_ minutes: Int) {
+    @IBAction func onStopPomoPressed(_ sender: Any) {
+        uiTimer?.invalidate()
+        timer?.invalidate()
+        timerOn = false
+        
+        timePicker.isHidden = false
+        timeLabel.isHidden = true
+        startButton.setTitle("Start Pomo", for: .normal)
+        stopPomoButton.isHidden = true;
+    }
+    func startLoop() {
         print("Timer set for \(timeLeft) seconds")
+        startButton!.setTitle("Pause Pomo", for: .normal)
         timesUpLabel.isHidden = true;
         timerOn = true;
         timePicker.isHidden = true
         timeLabel.isHidden = false
-        startButton.setTitle("Stop Pomo", for: .normal)
+        stopPomoButton.isHidden = false
+        self.timeLabel.text = Utils.formatSecondsIntoString(self.timeLeft);
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeLeft), repeats: false, block: { [self]_ in
             startButton.setTitle("Start Pomo", for: .normal);
             timerOn = false;
@@ -62,13 +75,14 @@ class PomoViewController: UIViewController {
             print("Tick Started")
             DispatchQueue.main.async {
                 self.timeLeft -= 1;
-                self.timeLabel.text = String(self.timeLeft);
+                self.timeLabel.text = Utils.formatSecondsIntoString(self.timeLeft);
             }
             if (self.timeLeft <= 1) {
                 timePicker.isHidden = false;
                 timeLabel.isHidden = true;
                 // sound alarm
                 timerOn = false;
+                stopPomoButton.isHidden = true
                 uiTimer?.invalidate();
                 timer?.invalidate();
                 startButton.setTitle("Start Pomo", for: .normal)

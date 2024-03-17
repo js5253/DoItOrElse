@@ -46,7 +46,7 @@ class SettingsViewController: ViewController {
             
             if (overdueReminders.count > 0) {
                 punishmentButton.isHidden = false;
-                missedTasksLabel.text = "Missed Tasks"
+                missedTasksLabel.text = "\(overdueReminders.count) Missed Tasks"
                 missedTasksLabel.textColor = .red
             }
         }
@@ -66,13 +66,11 @@ extension SettingsViewController {
         cell.todoDescription.text = ""
         let reminder = reminders[indexPath.row]
         let alreadyPassed = (reminder.completionDate != nil) ? Utils.dateAlreadyPassed(reminder.completionDate!) : false;
-        cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
         if (alreadyPassed) {
             cell.todoDescription.textColor = .red;
             cell.todoDescription.text! += "Overdue - "
         }
         if ((reminder.dueDateComponents) != nil) {
-            //                cell.todoDescription.text! += String(reminder.dueDateComponents!.month);
             if (reminder.dueDateComponents!.month != nil) {
                 cell.todoDescription.text! += String(reminder.dueDateComponents!.month!)
             }

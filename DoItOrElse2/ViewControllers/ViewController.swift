@@ -105,6 +105,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let notifs = await center.pendingNotificationRequests();
             print(notifs)
             notifs.forEach({
+                ///Create a daily Do It Or Else notification, five hours before the day ends,
                 notif in
                 if (!notif.content.title.contains("Time to Do it... or Else")) {
                     let content = UNMutableNotificationContent();
@@ -112,13 +113,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     content.body = "You have unfinished tasks, do them!"
                     content.sound = .defaultCritical
                     let interval = Utils.getDateFiveHoursBeforeEndOfToday()!.timeIntervalSinceNow
-                    if (interval < 60) {return}
+                    if (interval < 60) {return} /// getDateFiveHoursBeforeToday is kinda bugged
                     let dailyNot = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true))
                     center.add(dailyNot)
                 }
             })
-//            if (center.getPendingNotificationRequests(completionHandler: {
-//        }
+            let weeklyNotification = UNMutableNotificationContent();
+            weeklyNotification.title = "A new week awaits"
+            weeklyNotification.body = "You might've missed a few tasks and need to donate $20"
+            weeklyNotification.sound = .default
+            let interval = Utils.getTimeIntervalToEndOfWeek()
+            if (interval != nil) {
+                let weeklyNotReq = UNNotificationRequest(identifier: UUID().uuidString, content: weeklyNotification, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval!, repeats: true))
+                do {
+                    try await center.add(weeklyNotReq)
+                } catch {
+                    print("error scheduling weekly notif")
+                }
+
+            }
+
+
     }
 }
 }
@@ -141,7 +156,6 @@ extension ViewController {
                 cell.todoDescription.textColor = .red;
                 cell.todoDescription.text! += "Overdue - "
             }
-            let dateString = ""
             if ((reminder.dueDateComponents) != nil) {
 //                cell.todoDescription.text! += String(reminder.dueDateComponents!.month);
                 if (reminder.dueDateComponents!.month != nil) {

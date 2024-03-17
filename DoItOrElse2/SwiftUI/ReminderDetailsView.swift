@@ -23,16 +23,26 @@ public struct ReminderDetailsView: View {
         VStack {
             Text(reminder!.title!)
             Text(reminder!.startDateComponents?.description ?? "")
-            Button(action: {
+            HStack {
+                Button(action: {
+                    EventsService.shared.markComplete(reminder!)
+                    presentationMode.wrappedValue.dismiss()
+                    dismissDelegate?.didDismissSwiftUIView()
 
-                EventsService.shared.removeReminder(reminder!)
-                presentationMode.wrappedValue.dismiss()
-                dismissDelegate?.didDismissSwiftUIView()
-            }) {
-                Text("Delete Reminder").foregroundStyle(.red)
+                }) {
+                    Text("Mark Complete")
+                }
+                Button(action: {
+                    
+                    EventsService.shared.removeReminder(reminder!)
+                    presentationMode.wrappedValue.dismiss()
+                    dismissDelegate?.didDismissSwiftUIView()
+                }) {
+                    Text("Delete Reminder").foregroundStyle(.red)
+                }
+                //            .background(Color.red)
+                .buttonStyle(.bordered)
             }
-//            .background(Color.red)
-            .buttonStyle(.bordered)
         }
     }
 }

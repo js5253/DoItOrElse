@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import EventKit
 
 class Utils {
     static func dateAlreadyPassed(_ date: Date) -> Bool {
@@ -52,5 +53,40 @@ class Utils {
         
         return 24 - currentHour;
 
+    }
+    static func formatSecondsIntoString(_ seconds: Int) -> String {
+        var result = ""
+        let individual_seconds = seconds % 60;
+        let minutes = Int(seconds / 60);
+        
+        result += String(minutes)
+        result += "m "
+        
+        result += String(individual_seconds)
+        result += "s"
+        
+        return result
+    }
+    static func getTimeIntervalToEndOfWeek() -> TimeInterval? {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        if let endOfWeek = calendar.date(bySetting: .weekday, value: calendar.maximumRange(of: .weekday)?.upperBound ?? 7, of: now) {
+            let timeInterval = endOfWeek.timeIntervalSince(now)
+            return timeInterval
+        }
+        
+        return nil
+    }
+    static func daysSinceCreation(_ reminder: EKReminder) -> Int? {
+        guard let creationDate = reminder.creationDate else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let currentDate = Date()
+        
+        let components = calendar.dateComponents([.day], from: creationDate, to: currentDate)
+        return components.day
     }
 }

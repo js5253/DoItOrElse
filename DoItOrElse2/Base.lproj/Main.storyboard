@@ -44,16 +44,29 @@
                                             <action selector="onTimePickerChanged:" destination="GIT-6j-fzh" eventType="valueChanged" id="nfI-fe-1af"/>
                                         </connections>
                                     </datePicker>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-oR-w04">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="uP2-6L-w9k">
                                         <rect key="frame" x="0.0" y="261.66666666666663" width="320" height="34.333333333333314"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Start Pomo">
-                                            <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="onStartTimerPressed:" destination="GIT-6j-fzh" eventType="primaryActionTriggered" id="ZYu-io-Jyh"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-tU-YhF">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="34.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Stop"/>
+                                                <connections>
+                                                    <action selector="onStopPomoPressed:" destination="GIT-6j-fzh" eventType="primaryActionTriggered" id="zN3-x6-T9O"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-oR-w04">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="34.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Start Pomo">
+                                                    <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="onStartTimerPressed:" destination="GIT-6j-fzh" eventType="primaryActionTriggered" id="ZYu-io-Jyh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kaU-36-TU2">
@@ -93,6 +106,7 @@
                     <connections>
                         <outlet property="pomoInfoView" destination="scx-Ub-aXV" id="nsQ-Oc-YCz"/>
                         <outlet property="startButton" destination="wkv-oR-w04" id="tPP-MJ-aSq"/>
+                        <outlet property="stopPomoButton" destination="Dil-tU-YhF" id="717-kU-JXY"/>
                         <outlet property="timeLabel" destination="Joj-ax-SSW" id="Yci-Ks-F5z"/>
                         <outlet property="timePicker" destination="6tL-Jn-fz7" id="eLz-qf-BEQ"/>
                         <outlet property="timesUpLabel" destination="wEw-YA-wZI" id="BcN-9J-Oe1"/>

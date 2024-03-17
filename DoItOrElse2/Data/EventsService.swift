@@ -74,6 +74,15 @@ class DIReminder: EKReminder {
             return nil;
             
         }
+        func markComplete(_ reminder: EKReminder) {
+            reminder.isCompleted = true
+            do {
+                try store!.save(reminder, commit: true)
+                
+            } catch {
+                
+            }
+        }
         func removeReminder(_ reminder: EKReminder) {
             do {
                 try store?.remove(reminder, commit: true)
@@ -182,8 +191,14 @@ class DIReminder: EKReminder {
         func getAmountOwed() async -> Int {
                 let reminders = await getOverdueUnfinishedReminders();
                 
-            let amountOwed = reminders.reduce(0, {x, _ in x + 20});
-                
+            let amount = reminders.map({
+                reminder in
+                return Utils.daysSinceCreation(reminder)! * 20
+            })
+            let amountOwed = reminders.reduce(0,
+                                              {x, reminder in
+                return x + (Utils.daysSinceCreation(reminder)! * 20)
+            })
                 return amountOwed
             }
         func getReminderById(_ identifier: String) -> EKReminder {

@@ -124,6 +124,7 @@ public struct NewTodoView: View {
             .onAppear{
                 focused = true
             }
+        
             .modelContainer(for: Category.self)
             .onDisappear(perform: dismissDelegate?.didDismissSwiftUIView)
     }
