@@ -74,6 +74,14 @@ class DIReminder: EKReminder {
             return nil;
             
         }
+        func removeReminder(_ reminder: EKReminder) {
+            do {
+                try store?.remove(reminder, commit: true)
+
+            } catch {
+                print(error)
+            }
+        }
         func getCategories() async -> [Category] {
             print("Get categories")
             do {
@@ -149,12 +157,19 @@ class DIReminder: EKReminder {
                 let predForFutureReminders = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!])
                 return await getRemindersWithPredicate(predicate: predForFutureReminders)
             }
-            func getRemindersPassed() async -> [Category] {
-                var reminders = await getAllReminders();
-//                reminders?.filter({
-//                    data in
-//                })
-                return []
+            func getOverdueUnfinishedReminders() async -> [EKReminder] {
+                print("Get overdue unfinished reminders")
+                let oneDayAgo = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+                
+                // really bad way to create predicate from a day ago
+                let reminders = await getAllReminders() ?? [];
+                
+                return reminders.filter({
+                    reminder in
+                    
+                    return reminder.creationDate! < oneDayAgo && reminder.priority != 9
+                })
+                
             }
         func getAllReminders() async -> [EKReminder]? {
                 print("Get All events...")
@@ -163,12 +178,13 @@ class DIReminder: EKReminder {
                 return await getRemindersWithPredicate(predicate: predForAllItems)
 
             }
+        
         func getAmountOwed() async -> Int {
-                let reminders = await getAllReminders();
+                let reminders = await getOverdueUnfinishedReminders();
                 
-                let amountOwed = reminders?.reduce(0, {x, _ in x + 20});
+            let amountOwed = reminders.reduce(0, {x, _ in x + 20});
                 
-                return amountOwed ?? 0
+                return amountOwed
             }
         func getReminderById(_ identifier: String) -> EKReminder {
             return store?.calendarItem(withIdentifier: identifier) as! EKReminder
@@ -176,6 +192,7 @@ class DIReminder: EKReminder {
         func createReminder(todoName: String, todoDueDate: Date?, hasNotification: Bool) {
             let ev = EKReminder(eventStore: store!)
             ev.title = todoName;
+            ev.priority = 1;
             if let todoDueDate = todoDueDate {
                 ev.dueDateComponents = Calendar.current.dateComponents(in: .current, from: todoDueDate);
             }

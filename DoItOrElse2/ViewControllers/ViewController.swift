@@ -121,13 +121,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        }
     }
 }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let theDestination = (segue.destination as! ReminderDetailsView)
-//        theDestination.selectedId = selected
-        
-
-    }
-        
 }
 // MARK: TableView data functions
 
@@ -163,7 +156,10 @@ extension ViewController {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let id = reminders[indexPath.row].calendarItemIdentifier;
-        let hostingController = UIHostingController(rootView: ReminderDetailsView(reminderId: id));
+        var reminderDetailsView = ReminderDetailsView(reminderId: id);
+        reminderDetailsView.dismissDelegate = self
+
+        let hostingController = UIHostingController(rootView: reminderDetailsView);
         hostingController.modalPresentationStyle = .pageSheet
         // Present the hosting controller as a sheet
         present(hostingController, animated: true, completion: nil)

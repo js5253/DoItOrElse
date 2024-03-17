@@ -12,6 +12,8 @@ import EventKit
 public struct ReminderDetailsView: View {
     public var reminderId: String?;
     public var reminder: EKReminder?;
+    @Environment(\.presentationMode) var presentationMode
+    var dismissDelegate: DismissDelegate?
     
     init(reminderId: String? = nil, reminder: EKReminder? = nil) {
         self.reminderId = reminderId
@@ -21,7 +23,12 @@ public struct ReminderDetailsView: View {
         VStack {
             Text(reminder!.title!)
             Text(reminder!.startDateComponents?.description ?? "")
-            Button(action: {}) {
+            Button(action: {
+
+                EventsService.shared.removeReminder(reminder!)
+                presentationMode.wrappedValue.dismiss()
+                dismissDelegate?.didDismissSwiftUIView()
+            }) {
                 Text("Delete Reminder").foregroundStyle(.red)
             }
 //            .background(Color.red)
