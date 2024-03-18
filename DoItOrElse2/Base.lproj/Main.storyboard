@@ -16,36 +16,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pomodoro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e51-Vz-a49">
-                                <rect key="frame" x="16" y="59" width="150" height="40.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e51-Vz-a49">
+                                <rect key="frame" x="16" y="59" width="74.666666666666671" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aKl-69-fnk">
-                                <rect key="frame" x="36.666666666666657" y="266" width="320" height="296"/>
+                                <rect key="frame" x="36.666666666666657" y="263.66666666666663" width="320" height="300.66666666666663"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJE-im-HhJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="29.666666666666668"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Pick Task">
-                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleFootnote"/>
-                                        </buttonConfiguration>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fze-7c-8YF">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="34.333333333333336"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbk-8L-C4I">
+                                                <rect key="frame" x="0.0" y="0.0" width="160" height="34.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJE-im-HhJ">
+                                                <rect key="frame" x="160" y="0.0" width="160" height="34.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Pick Task">
+                                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleFootnote"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-ax-SSW">
-                                        <rect key="frame" x="0.0" y="33.666666666666686" width="320" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="38.333333333333314" width="320" height="0.0"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                         <color key="textColor" systemColor="systemTealColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tL-Jn-fz7">
-                                        <rect key="frame" x="0.0" y="37.666666666666686" width="320" height="216"/>
+                                        <rect key="frame" x="0.0" y="42.333333333333314" width="320" height="216"/>
                                         <connections>
                                             <action selector="onTimePickerChanged:" destination="GIT-6j-fzh" eventType="valueChanged" id="nfI-fe-1af"/>
                                         </connections>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="uP2-6L-w9k">
-                                        <rect key="frame" x="0.0" y="261.66666666666663" width="320" height="34.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="266.33333333333331" width="320" height="34.333333333333314"/>
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-tU-YhF">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="34.333333333333336"/>
@@ -58,7 +68,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-oR-w04">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="34.333333333333336"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="tinted" title="Start Pomo">
+                                                <buttonConfiguration key="configuration" style="tinted" title="Start Timer">
                                                     <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
@@ -180,7 +190,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="SpS-zp-hQ2">
                                                 <rect key="frame" x="8.0000000000000071" y="79.333333333333343" width="124.66666666666669" height="62.333333333333343"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlY-bR-fId">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlY-bR-fId">
                                                         <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="37"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -313,6 +323,7 @@
                         <outlet property="moneySpentHeadingLabel" destination="A4Y-2j-aAa" id="A3u-kJ-WX1"/>
                         <outlet property="punishmentButton" destination="fZN-2S-N7G" id="f2A-VK-kXU"/>
                         <outlet property="tasksDueTodayLabel" destination="TlY-bR-fId" id="3xV-u5-Szl"/>
+                        <outlet property="tasksTodayLabel" destination="TlY-bR-fId" id="ygL-5z-bzP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6AW-GX-QBH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

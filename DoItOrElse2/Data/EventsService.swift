@@ -91,6 +91,11 @@ class DIReminder: EKReminder {
                 print(error)
             }
         }
+        func getCurrentReminder() {
+//            getFutureReminders(predicate: #Predicate({ reminder in
+//                
+//            }))
+        }
         func getCategories() async -> [Category] {
             print("Get categories")
             do {
@@ -180,10 +185,18 @@ class DIReminder: EKReminder {
                 })
                 
             }
+        func getIncompleteReminders() async -> [EKReminder]? {
+                print("Get All events...")
+                
+                let predForAllItems = self.store!.predicateForIncompleteReminders(withDueDateStarting: nil, ending: nil, calendars: [self.store!.defaultCalendarForNewReminders()!]);
+                return await getRemindersWithPredicate(predicate: predForAllItems)
+
+            }
+        
         func getAllReminders() async -> [EKReminder]? {
                 print("Get All events...")
                 
-                let predForAllItems = self.store!.predicateForReminders(in: [self.store!.defaultCalendarForNewReminders()!]);
+                let predForAllItems = self.store!.predicateForIncompleteReminders(withDueDateStarting: nil, ending: nil, calendars: [self.store!.defaultCalendarForNewReminders()!]);
                 return await getRemindersWithPredicate(predicate: predForAllItems)
 
             }
@@ -191,10 +204,6 @@ class DIReminder: EKReminder {
         func getAmountOwed() async -> Int {
                 let reminders = await getOverdueUnfinishedReminders();
                 
-            let amount = reminders.map({
-                reminder in
-                return Utils.daysSinceCreation(reminder)! * 20
-            })
             let amountOwed = reminders.reduce(0,
                                               {x, reminder in
                 return x + (Utils.daysSinceCreation(reminder)! * 20)

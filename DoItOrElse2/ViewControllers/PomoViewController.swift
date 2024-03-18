@@ -8,22 +8,33 @@
 import Foundation
 import UIKit
 
+let POMODORO_WORK_MINUTES: Int = 25;
+let POMDOORO_REST_MINUTES: Int = 5;
+
 class PomoViewController: UIViewController {
     @IBOutlet weak var timesUpLabel: UILabel!
     @IBOutlet weak var stopPomoButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!;
+    
     @IBOutlet var pomoInfoView: UIView!
 //    @IBOutlet weak var pomoTimeBox: UITextField!
     @IBOutlet weak var timePicker: UIDatePicker!
-    var timeLeft = 60;
+    var timeLeft = POMODORO_WORK_MINUTES * 60; //
     var timerOn = false;
     var timer: Timer? = nil;
     var uiTimer: Timer? = nil;
+    var isPomoOn = true;
     override func viewDidLoad() {
         super.viewDidLoad();
         print("Pomo")
-//        pomoTimeBox.text = String(timeLeft)
+        var dateComponents = DateComponents()
+        dateComponents.hour = 0 // or 12 for "12:25"
+        dateComponents.minute = 25
+        
+        let defaultTime = Calendar.current.date(from: dateComponents)!;
+        
+        timePicker.date = defaultTime;
         
     }
     @IBAction func onStartTimerPressed(_ sender: Any) {
@@ -71,6 +82,7 @@ class PomoViewController: UIViewController {
             print("Timer Started...")
             pomoInfoView.isHidden = false;
         })
+        ///we likely need a UI timer too to advance every second
         uiTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true, block: {[self]_ in
             print("Tick Started")
             DispatchQueue.main.async {
@@ -89,7 +101,7 @@ class PomoViewController: UIViewController {
             }
         })
         let notification = UNMutableNotificationContent()
-        notification.title = "Pomo Over!"
+        notification.title = "Work Over!"
         notification.body = "Time to take a break or something"
         notification.sound = .default;
         

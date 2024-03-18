@@ -14,6 +14,7 @@ class SettingsViewController: ViewController {
     @IBOutlet weak var moneySpentHeadingLabel: UILabel!
     @IBOutlet weak var missedTasksLabel: UILabel!
     @IBOutlet weak var punishmentButton: UIButton!
+    @IBOutlet weak var tasksTodayLabel: UILabel!
     @IBOutlet weak var missedTaskTableView: UITableView!
     private var overdueReminders: [EKReminder] = [];
     @IBOutlet weak var hoursLeftBadge: UIButton!

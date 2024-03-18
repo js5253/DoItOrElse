@@ -68,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
-            let rem = await EventsService.shared.getAllReminders()
+            let rem = await EventsService.shared.getIncompleteReminders()
             await MainActor.run {
                 self.reminders = rem ?? []
                 if (tasksTableView != nil) {
@@ -150,7 +150,7 @@ extension ViewController {
             }
             cell.todoDescription.text = ""
             let reminder = reminders[indexPath.row]
-            let alreadyPassed = (reminder.completionDate != nil) ? Utils.dateAlreadyPassed(reminder.completionDate!) : false;
+            let alreadyPassed = (Utils.dateAlreadyPassed(reminder.creationDate!)) ? Utils.dateAlreadyPassed(reminder.creationDate!) : false;
             cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
             if (alreadyPassed) {
                 cell.todoDescription.textColor = .red;

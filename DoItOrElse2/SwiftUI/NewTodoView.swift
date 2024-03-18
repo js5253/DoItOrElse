@@ -64,28 +64,28 @@ public struct NewTodoView: View {
             VStack {
                 Text("New To-Do Item").font(.title)
                 HStack {
-                    Picker("Category", selection: $todoCategoryId) {
-                        Text("None").tag("None")
-                        ForEach(allCategories ?? [], id: \.self) {category in
-                            Text(category.name).tag(category.name)
-                        }
-                        Text("New Category").tag("New")
-                    }.onChange(of: todoCategoryId, {
-                        if (todoCategoryId == "New") {
-                            todoNewCategoryPresented = true
-                        }
-                    })
-                    .alert("Create a new category", isPresented: $todoNewCategoryPresented) {
-                        TextField("ASSA", text: $todoNewCategory)
-                        Button(action: newCategory) {
-                            Text("OK")
-                        }
-                    }
-                    Picker("Repeat", selection: $todoRepeat) {
-                        ForEach(TodoRepeat.allCases, id: \.self) { item in
-                            Text(item.rawValue)
-                        }
-                    }
+////                    Picker("Category", selection: $todoCategoryId) {
+////                        Text("None").tag("None")
+////                        ForEach(allCategories ?? [], id: \.self) {category in
+////                            Text(category.name).tag(category.name)
+////                        }
+////                        Text("New Category").tag("New")
+////                    }.onChange(of: todoCategoryId, {
+////                        if (todoCategoryId == "New") {
+////                            todoNewCategoryPresented = true
+////                        }
+////                    })
+////                    .alert("Create a new category", isPresented: $todoNewCategoryPresented) {
+////                        TextField("ASSA", text: $todoNewCategory)
+////                        Button(action: newCategory) {
+////                            Text("OK")
+////                        }
+////                    }
+//                    Picker("Repeat", selection: $todoRepeat) {
+//                        ForEach(TodoRepeat.allCases, id: \.self) { item in
+//                            Text(item.rawValue)
+//                        }
+//                    }
                 }
 //                DatePicker("Due Date", selection: $todoDueDate, displayedComponents: [.date, .hourAndMinute])
 //                HStack {
@@ -96,16 +96,16 @@ public struct NewTodoView: View {
 //                        Text("The morning before")
 //                    }
 //                }
-                Picker("What's this type of thing?", selection: $todoType) {
-                    Text("To-Do").tag(TodoItemType.ToDo)
-                    Text("Habit").tag(TodoItemType.Habit)
-                }.pickerStyle(.segmented)
+//                Picker("What's this type of thing?", selection: $todoType) {
+//                    Text("To-Do").tag(TodoItemType.ToDo)
+//                    Text("Habit").tag(TodoItemType.Habit)
+//                }.pickerStyle(.segmented)
                 HStack {
                     TextField("To-Do", text: $todoName)
                         .padding(8)
                         .overlay(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke(Color.orange))
                         .focused($focused)
-                    Spacer()
+                    Spacer(minLength: 40)
                     Button(action:
                             { 
                         Task {
