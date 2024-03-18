@@ -11,10 +11,10 @@ import SwiftData
 
 struct ChoosePage: View {
     @State private var chosenPunishment: Punishment?;
-    @State private var settings: AppSettings = SettingsService.getSettings()!;
+//    @State private var settings: AppSettings = SettingsService.getSettings()!;
     
     func onPress() {
-        print(settings)
+//        print(settings)
     }
     
     

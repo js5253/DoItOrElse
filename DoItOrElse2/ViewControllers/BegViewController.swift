@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+import EventKit
 class BegViewController: UIViewController {
+    @IBOutlet weak var backButton: UIButton!
+    public var reminder: EKReminder!
+    var dismissDelegate: DismissDelegate?
     @IBOutlet weak var begTextField: UITextView!
     @IBOutlet weak var begTextResult: UITextView!
     let api_key = "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"
@@ -17,6 +21,10 @@ You are Edgeworth, an attorney that decides whether someone is punished or not. 
 {"pardoned": true, "description": "explanation here..."} or {"pardoned": false, "description": "explanation here..."}
 
 """
+    @IBAction func onBackPress(_ sender: Any) {
+        self.dismissDelegate?.didDismissSwiftUIView()
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func onButtonPress(_ sender: Any) {
         print("onBegButtonPress")
@@ -27,7 +35,7 @@ You are Edgeworth, an attorney that decides whether someone is punished or not. 
         let requestBody: [String: Any] = [
             "model": "gpt-3.5-turbo",
             "messages": [
-                ["role": "system", "content": prompt + "Task: I didn't do the dishes"],
+                ["role": "system", "content": prompt + "Task: \(reminder.title ?? "Uhhh, something's gone wrong. Mention the error in your response")"],
                 ["role": "user", "content": begTextField.text!]
             ],
             "temperature": 0.7
@@ -60,7 +68,8 @@ You are Edgeworth, an attorney that decides whether someone is punished or not. 
                             let response = try JSONDecoder().decode(ChatGPTResponse.self, from: responseData).choices[0].message.content
                             DispatchQueue.main.async {
                                 if (response.pardoned) {
-                                    let alert = UIAlertController(title: "Success!", message: "Pardoned, you don't have to pay $30 for that lol", preferredStyle: .alert)
+                                    EventsService.shared.removeReminder(self.reminder)
+                                    let alert = UIAlertController(title: "Success!", message: "Pardoned, you don't have to pay $20 for that lol", preferredStyle: .alert)
                                     self.present(alert, animated: true)
                                     Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
                                                 alert.dismiss(animated: true, completion: nil)

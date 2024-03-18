@@ -11,6 +11,7 @@
 		824846C42B96A0E900AFAFA6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */; };
 		824846C62B96A45200AFAFA6 /* BegViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824846C52B96A45200AFAFA6 /* BegViewController.swift */; };
 		8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */; };
+		82A22B202BA8CBF6004D22AA /* PunishmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A22B1F2BA8CBF6004D22AA /* PunishmentView.swift */; };
 		82B58B992B8D391800E68AD0 /* NewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B58B982B8D391800E68AD0 /* NewTodoView.swift */; };
 		82CFF45E2BA15E4100689D4A /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45D2BA15E4100689D4A /* EventsService.swift */; };
 		82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CFF45F2BA1712300689D4A /* SettingsViewController.swift */; };
@@ -31,7 +32,6 @@
 		82FA91722BA5778700DBD0E5 /* Punishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91712BA5778700DBD0E5 /* Punishments.swift */; };
 		82FA91772BA61C4B00DBD0E5 /* ChoosePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91762BA61C4B00DBD0E5 /* ChoosePage.swift */; };
 		82FA91792BA61E4F00DBD0E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA91782BA61E4F00DBD0E5 /* SettingsService.swift */; };
-		82FA917D2BA6C10100DBD0E5 /* PunishmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +56,7 @@
 		824846C32B96A0E900AFAFA6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		824846C52B96A45200AFAFA6 /* BegViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BegViewController.swift; sourceTree = "<group>"; };
 		8292666E2B96AB9D0035F59E /* ChatGPTCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCompletion.swift; sourceTree = "<group>"; };
+		82A22B1F2BA8CBF6004D22AA /* PunishmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunishmentView.swift; sourceTree = "<group>"; };
 		82B58B982B8D391800E68AD0 /* NewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoView.swift; sourceTree = "<group>"; };
 		82CFF45D2BA15E4100689D4A /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
 		82CFF45F2BA1712300689D4A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		82FA91712BA5778700DBD0E5 /* Punishments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Punishments.swift; sourceTree = "<group>"; };
 		82FA91762BA61C4B00DBD0E5 /* ChoosePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePage.swift; sourceTree = "<group>"; };
 		82FA91782BA61E4F00DBD0E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
-		82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunishmentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,6 @@
 		82FA91732BA5779200DBD0E5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				82FA917C2BA6C10100DBD0E5 /* PunishmentViewController.swift */,
 				82CFF4632BA17BDE00689D4A /* MyTableViewCell.swift */,
 				82D74F8C2B8562080031CBAA /* ViewController.swift */,
 				824846C52B96A45200AFAFA6 /* BegViewController.swift */,
@@ -195,6 +194,7 @@
 				82B58B982B8D391800E68AD0 /* NewTodoView.swift */,
 				82FA916F2BA54C0900DBD0E5 /* ReminderDetailsView.swift */,
 				82FA91762BA61C4B00DBD0E5 /* ChoosePage.swift */,
+				82A22B1F2BA8CBF6004D22AA /* PunishmentView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -338,13 +338,13 @@
 				82FA916C2BA21F7100DBD0E5 /* Utils.swift in Sources */,
 				82FA91722BA5778700DBD0E5 /* Punishments.swift in Sources */,
 				82D74FBD2B8593880031CBAA /* SheetAppDelegate.swift in Sources */,
-				82FA917D2BA6C10100DBD0E5 /* PunishmentViewController.swift in Sources */,
 				824846C42B96A0E900AFAFA6 /* CoreDataStack.swift in Sources */,
 				82CFF4642BA17BDE00689D4A /* MyTableViewCell.swift in Sources */,
 				8292666F2B96AB9D0035F59E /* ChatGPTCompletion.swift in Sources */,
 				82CFF4602BA1712400689D4A /* SettingsViewController.swift in Sources */,
 				824846C22B96A0A000AFAFA6 /* AppModel.xcdatamodeld in Sources */,
 				82D74F892B8562080031CBAA /* AppDelegate.swift in Sources */,
+				82A22B202BA8CBF6004D22AA /* PunishmentView.swift in Sources */,
 				82B58B992B8D391800E68AD0 /* NewTodoView.swift in Sources */,
 				82FA91702BA54C0900DBD0E5 /* ReminderDetailsView.swift in Sources */,
 				82FA91772BA61C4B00DBD0E5 /* ChoosePage.swift in Sources */,

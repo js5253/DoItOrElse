@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Punishment {
+public struct Punishment: Hashable {
     var name: String
     var description: String
     var url: String

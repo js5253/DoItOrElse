@@ -13,9 +13,6 @@ class Utils {
         let currentDate = Date()
         return date < currentDate
     }
-    static func formatDate(_ date: Date) -> String {
-        return ""
-    }
     static func isDateMoreThan24HoursBeforeNow(date: Date) -> Bool {
         let currentDate = Date() // Current date and time
         let calendar = Calendar.current

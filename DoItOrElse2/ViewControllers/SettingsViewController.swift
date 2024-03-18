@@ -31,10 +31,14 @@ class SettingsViewController: ViewController {
     @IBOutlet weak var tasksDueTodayLabel: UILabel!
     
     @IBAction func onPayNowPressed(_ sender: Any) {
-        print("Pay now pressed!")
-        let storyboard = UIStoryboard(name: "PunishmentViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "PunishmentViewController")
-        self.present(vc, animated: true)
+        let hostingController = UIHostingController(rootView: PunishmentView())
+        hostingController.modalPresentationStyle = .pageSheet
+
+        hostingController.view.sizeToFit()
+        // Present the hosting controller as a sheet
+        present(hostingController, animated: true, completion: nil)
+
+
     }
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -51,6 +55,7 @@ class SettingsViewController: ViewController {
                 missedTasksLabel.text = "\(overdueReminders.count) Missed Tasks"
                 missedTasksLabel.textColor = .red
             }
+            self.missedTaskTableView.reloadData()
         }
     }
 }
@@ -68,22 +73,28 @@ extension SettingsViewController {
         cell.todoDescription.text = ""
         let reminder = reminders[indexPath.row]
         let alreadyPassed = (reminder.completionDate != nil) ? Utils.dateAlreadyPassed(reminder.completionDate!) : false;
+        cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
         if (alreadyPassed) {
             cell.todoDescription.textColor = .red;
-            cell.todoDescription.text! += "Overdue - "
+            cell.todoDescription.text! += String(Utils.daysSinceCreation(reminder)!) + "d"
         }
         if ((reminder.dueDateComponents) != nil) {
+//                cell.todoDescription.text! += String(reminder.dueDateComponents!.month);
             if (reminder.dueDateComponents!.month != nil) {
-                cell.todoDescription.text! += String(reminder.dueDateComponents!.month!)
+                cell.todoDescription.text! += " " + String(reminder.creationDate!.formatted(date: .abbreviated, time: .omitted))
             }
-            cell.todoDescription.text! += "/"
-            if (reminder.dueDateComponents!.day != nil) {
-                cell.todoDescription.text! += String(reminder.dueDateComponents!.day!)
-            }
+//            cell.todoDescription.text! += "/"
+//            if (reminder.dueDateComponents!.day != nil) {
+//                cell.todoDescription.text! += String(reminder.dueDateComponents!.day!)
+//            }
         }
         return cell
-    }
+}
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "SomeView") as! BegViewController
+        viewController.reminder = overdueReminders[indexPath.row]
+        viewController.dismissDelegate = self;
+        present(viewController, animated: true, completion: nil)
         //        let id = reminders[indexPath.row].calendarItemIdentifier;
         //        let hostingController = UIHostingController(rootView: ReminderDetailsView(reminderId: id));
         //        hostingController.modalPresentationStyle = .pageSheet
