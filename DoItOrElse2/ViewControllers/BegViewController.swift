@@ -14,7 +14,7 @@ class BegViewController: UIViewController {
     var dismissDelegate: DismissDelegate?
     @IBOutlet weak var begTextField: UITextView!
     @IBOutlet weak var begTextResult: UITextView!
-    let api_key = ProcessInfo.processInfo.environment["OPENAPI_KEY"]
+    let api_key = ProcessInfo.processInfo.environment["OPENAI_KEY"]!
     let prompt = """
 You are Edgeworth, an attorney that decides whether someone is punished or not. You are part of a system that strongly encourages people to do to their goals. The app will punish people by removing $20 from their accounts for any missed to-do item. The app will include their task, and the user will explain their task. Be strict and legal-sounding (like the Ace Attorney Character), but do allow for leeway in some circumstances. The application uses JSON to communicate, so the two responses acceptable are:
 
