@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func didDismissSwiftUIView() {
             // Perform your desired function here
         Task {
-            let rem = await EventsService.shared.getAllReminders()
+            let rem = await EventsService.shared.getIncompleteReminders()
             await MainActor.run {
                 self.reminders = rem ?? []
                 if (tasksTableView != nil) {
@@ -54,17 +54,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(hostingController, animated: true, completion: nil)
         
     }
-    
-    @IBAction func onDemoButtonPress(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "SomeView", bundle: nil) // Use your actual storyboard name
-        if let viewController = storyboard.instantiateViewController(withIdentifier: "SomeView") as? SheetViewController {
-            
-            if let sheet = viewController.sheetPresentationController {
-                viewController.modalPresentationStyle = .pageSheet
-                present(viewController, animated: true, completion: nil)
-            }
-        }
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
@@ -83,13 +72,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         self.view.layoutIfNeeded()
         
-        let hoursLeft = Utils.hoursLeftInDay()!;
-        if (hoursLeft < 6) {
-            hoursLeftLabel.textColor = .orange
-        } else if (hoursLeft < 3) {
-            hoursLeftLabel.textColor = .red
-        }
+        
         if (hoursLeftLabel != nil) {
+            let hoursLeft = Utils.hoursLeftInDay()!;
+            if (hoursLeft < 6) {
+                hoursLeftLabel.textColor = .orange
+            } else if (hoursLeft < 3) {
+                hoursLeftLabel.textColor = .red
+            }
             hoursLeftLabel.text = "\(hoursLeft) hours left"
         }
         
@@ -104,27 +94,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         Task {
             let notifs = await center.pendingNotificationRequests();
             print(notifs)
-            notifs.forEach({
-                ///Create a daily Do It Or Else notification, five hours before the day ends,
-                notif in
-                if (!notif.content.title.contains("Time to Do it... or Else")) {
-                    let content = UNMutableNotificationContent();
-                    content.title = "Time to Do it... or Else"
-                    content.body = "You have unfinished tasks, do them!"
-                    content.sound = .defaultCritical
-                    let interval = Utils.getDateFiveHoursBeforeEndOfToday()!.timeIntervalSinceNow
-                    if (interval < 60) {return} /// getDateFiveHoursBeforeToday is kinda bugged
-                    let dailyNot = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true))
-                    center.add(dailyNot)
-                }
+            
+            let a = notifs.filter({
+                notification in
+                return notification.content.title == "Time to Do it... or Else"
             })
+            
+            let content = UNMutableNotificationContent();
+            content.title = "Time to Do it... or Else"
+            content.body = "You have unfinished tasks, do them!"
+            content.sound = .defaultCritical
+            let interval = Utils.getDateFiveHoursBeforeEndOfToday()!.timeIntervalSinceNow
+            if (interval < 60) {return} /// getDateFiveHoursBeforeToday is kinda bugged
+            let dailyNot = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true))
+            try await center.add(dailyNot)
+
+            
             let weeklyNotification = UNMutableNotificationContent();
             weeklyNotification.title = "A new week awaits"
             weeklyNotification.body = "You might've missed a few tasks and need to donate $20"
             weeklyNotification.sound = .default
-            let interval = Utils.getTimeIntervalToEndOfWeek()
-            if (interval != nil) {
-                let weeklyNotReq = UNNotificationRequest(identifier: UUID().uuidString, content: weeklyNotification, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval!, repeats: true))
+            let interval2 = Utils.getTimeIntervalToEndOfWeek()
+            if (interval2 != nil) {
+                let weeklyNotReq = UNNotificationRequest(identifier: UUID().uuidString, content: weeklyNotification, trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval2!, repeats: true))
                 do {
                     try await center.add(weeklyNotReq)
                 } catch {
@@ -156,16 +148,7 @@ extension ViewController {
                 cell.todoDescription.textColor = .red;
                 cell.todoDescription.text! += "Overdue - "
             }
-            if ((reminder.dueDateComponents) != nil) {
-//                cell.todoDescription.text! += String(reminder.dueDateComponents!.month);
-                if (reminder.dueDateComponents!.month != nil) {
-                    cell.todoDescription.text! += String(reminder.dueDateComponents!.month!)
-                }
-                cell.todoDescription.text! += "/"
-                if (reminder.dueDateComponents!.day != nil) {
-                    cell.todoDescription.text! += String(reminder.dueDateComponents!.day!)
-                }
-            }
+            cell.todoDescription.text! += reminder.creationDate!.formatted(date: .abbreviated, time: .omitted)
             return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -29,6 +29,7 @@ struct PunishmentView : View {
     @State private var selected: Int = 0;
     @State private var owed: Int = 0;
     @State private var url: String = Punishments[0].url
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     init() {
         
     }
@@ -58,11 +59,20 @@ struct PunishmentView : View {
                 )
         }
         HStack {
-            Button(action: {}) {
+            Button(action: {
+                Task {
+                    await EventsService.shared.setAllRemindersComplete()
+                    presentationMode.wrappedValue.dismiss()
+                }
+
+            }) {
                 Text("I did it!!!")
             }
             Spacer(minLength: 40)
-            Button(action: {}) {
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+
+            }) {
                 Text("Nevermind...")
             }
         }.padding(6)

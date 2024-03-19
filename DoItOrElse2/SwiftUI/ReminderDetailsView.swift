@@ -22,8 +22,8 @@ public struct ReminderDetailsView: View {
     }
     public var body: some View {
         VStack {
-            Text(reminder!.title!)
-            Text((reminder!.creationDate?.formatted(.dateTime))!)
+            Text(reminder!.title!).font(.title)
+            Text((reminder!.creationDate?.formatted(.dateTime))!).font(.title3)
             HStack {
                 Button(action: {
                     EventsService.shared.markComplete(reminder!)

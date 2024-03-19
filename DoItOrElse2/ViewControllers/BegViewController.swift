@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 import EventKit
 class BegViewController: UIViewController {
+    @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     public var reminder: EKReminder!
+    @IBOutlet weak var daysAgo: UILabel!
     var dismissDelegate: DismissDelegate?
     @IBOutlet weak var begTextField: UITextView!
     @IBOutlet weak var begTextResult: UITextView!
@@ -21,6 +23,10 @@ You are Edgeworth, an attorney that decides whether someone is punished or not. 
 {"pardoned": true, "description": "explanation here..."} or {"pardoned": false, "description": "explanation here..."}
 
 """
+    override func viewDidLoad() {
+        taskLabel.text = "Task: " + reminder.title
+        daysAgo.text = String( Utils.daysSinceCreation(reminder!)!)
+    }
     @IBAction func onBackPress(_ sender: Any) {
         self.dismissDelegate?.didDismissSwiftUIView()
         self.dismiss(animated: true, completion: nil)
@@ -83,6 +89,7 @@ You are Edgeworth, an attorney that decides whether someone is punished or not. 
                                             }
 
                                 }
+                                self.backButton.isHidden = false
                                 self.begTextResult.text = response.description;
                             }
 

@@ -74,13 +74,26 @@ class DIReminder: EKReminder {
             return nil;
             
         }
+        func setAllRemindersComplete() async {
+            let rem = await getAllReminders()!;
+            do {
+                try rem.forEach({reminder in
+                    reminder.priority = 1;
+                    try store!.save(reminder, commit: true)
+                })
+
+            }
+            catch {
+                print(error)
+            }
+        }
         func markComplete(_ reminder: EKReminder) {
             reminder.isCompleted = true
             do {
                 try store!.save(reminder, commit: true)
                 
             } catch {
-                
+                print(error)
             }
         }
         func removeReminder(_ reminder: EKReminder) {
@@ -174,6 +187,7 @@ class DIReminder: EKReminder {
             func getOverdueUnfinishedReminders() async -> [EKReminder] {
                 print("Get overdue unfinished reminders")
                 let oneDayAgo = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+                print(oneDayAgo)
                 
                 // really bad way to create predicate from a day ago
                 let reminders = await getAllReminders() ?? [];
@@ -181,16 +195,17 @@ class DIReminder: EKReminder {
                 return reminders.filter({
                     reminder in
                     
-                    return reminder.creationDate! < oneDayAgo && reminder.priority != 9
+                    return reminder.creationDate!.compare(oneDayAgo) == .orderedAscending && reminder.priority != 9
                 })
                 
             }
         func getIncompleteReminders() async -> [EKReminder]? {
-                print("Get All events...")
+                let allReminders = await getAllReminders()
+            
+            return allReminders?.filter({reminder in
+                return !reminder.isCompleted
                 
-                let predForAllItems = self.store!.predicateForIncompleteReminders(withDueDateStarting: nil, ending: nil, calendars: [self.store!.defaultCalendarForNewReminders()!]);
-                return await getRemindersWithPredicate(predicate: predForAllItems)
-
+            })
             }
         
         func getAllReminders() async -> [EKReminder]? {
@@ -232,11 +247,16 @@ class DIReminder: EKReminder {
                             
                             let content = UNMutableNotificationContent()
                             content.title = todoName
-                            content.body = "fuckin dogshit ass app"
-                            
+                            content.body = "Do this before the end of the day!"
+                        let fiveH = Utils.getDateFiveHoursBeforeEndOfToday()
+                        if (fiveH != nil) {
                             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
                             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                             try await center.add(request)
+                        } else {
+                            print("idk")
+                        }
+                            
                     }
                     
                 }

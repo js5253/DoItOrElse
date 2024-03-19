@@ -10,8 +10,13 @@ import EventKit
 
 class Utils {
     static func dateAlreadyPassed(_ date: Date) -> Bool {
-        let currentDate = Date()
-        return date < currentDate
+        var anotherDate = DateComponents()
+        anotherDate.day = 1;
+        
+        
+        let currentDate = Calendar.current.date(byAdding: anotherDate, to: Date())!
+        
+        return date > currentDate
     }
     static func isDateMoreThan24HoursBeforeNow(date: Date) -> Bool {
         let currentDate = Date() // Current date and time

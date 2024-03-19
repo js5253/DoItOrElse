@@ -11,6 +11,7 @@ import SwiftUI
 import EventKit
 
 class SettingsViewController: ViewController {
+    @IBOutlet weak var totalTasksLabel: UILabel!
     @IBOutlet weak var moneySpentHeadingLabel: UILabel!
     @IBOutlet weak var missedTasksLabel: UILabel!
     @IBOutlet weak var punishmentButton: UIButton!
@@ -41,15 +42,14 @@ class SettingsViewController: ViewController {
 
 
     }
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        missedTaskTableView.delegate = self;
-        missedTaskTableView.dataSource = self;
-        hoursLeftBadge.setTitle(String(Utils.hoursLeftInDay()!), for: .disabled)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         Task {
+            totalTasksLabel.text = await String( EventsService.shared.getAllReminders()!.count)
+            hoursLeftBadge.setTitle(String(Utils.hoursLeftInDay()!) + "H LEFT", for: .disabled)
             overdueReminders = await EventsService.shared.getOverdueUnfinishedReminders()
             moneySpentHeadingLabel.text = await "$" + String( EventsService.shared.getAmountOwed())
-            tasksDueTodayLabel.text = String(EventsService.shared.getReminderCount());
+            tasksDueTodayLabel.text = await String(EventsService.shared.getIncompleteReminders()!.count);
             
             if (overdueReminders.count > 0) {
                 punishmentButton.isHidden = false;
@@ -58,13 +58,19 @@ class SettingsViewController: ViewController {
             }
             self.missedTaskTableView.reloadData()
         }
+
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad();
+        missedTaskTableView.delegate = self;
+        missedTaskTableView.dataSource = self;
     }
 }
 
 extension SettingsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("ASAASSA")
-        return reminders.count
+        return overdueReminders.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,7 +78,7 @@ extension SettingsViewController {
             fatalError("Unable to dequeue CustomTableViewCell")
         }
         cell.todoDescription.text = ""
-        let reminder = reminders[indexPath.row]
+        let reminder = overdueReminders[indexPath.row]
         let alreadyPassed = (reminder.completionDate != nil) ? Utils.dateAlreadyPassed(reminder.completionDate!) : false;
         cell.todoTitle.text = reminder.title // Assuming your reminder has a 'title' property
         if (alreadyPassed) {
@@ -84,10 +90,6 @@ extension SettingsViewController {
             if (reminder.dueDateComponents!.month != nil) {
                 cell.todoDescription.text! += " " + String(reminder.creationDate!.formatted(date: .abbreviated, time: .omitted))
             }
-//            cell.todoDescription.text! += "/"
-//            if (reminder.dueDateComponents!.day != nil) {
-//                cell.todoDescription.text! += String(reminder.dueDateComponents!.day!)
-//            }
         }
         return cell
 }
@@ -96,13 +98,6 @@ extension SettingsViewController {
         viewController.reminder = overdueReminders[indexPath.row]
         viewController.dismissDelegate = self;
         present(viewController, animated: true, completion: nil)
-        //        let id = reminders[indexPath.row].calendarItemIdentifier;
-        //        let hostingController = UIHostingController(rootView: ReminderDetailsView(reminderId: id));
-        //        hostingController.modalPresentationStyle = .pageSheet
-        //        // Present the hosting controller as a sheet
-        //        present(hostingController, animated: true, completion: nil)
-        //
-        //    }
-        
     }
 }
+
